@@ -12,6 +12,6 @@ namespace GameShelf.Models
         public DateTime OrigPubYear { get; set; }
         public int Edition { get; set; }
 
-        public ICollection<GamePersonRelationship> RelatedPeople { get; set; }
+        public ICollection<GamePersonRelationship> GamePersonRelationships { get; set; }
     }
 }
