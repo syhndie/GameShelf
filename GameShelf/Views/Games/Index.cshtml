@@ -16,10 +16,7 @@
                     @Html.DisplayNameFor(model => model.Title)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.OrigPubYear)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Edition)
+                    @Html.DisplayNameFor(model => model.PublicationYear)
                 </th>
             <th></th>
         </tr>
@@ -31,10 +28,7 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OrigPubYear)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Edition)
+                @Html.DisplayFor(modelItem => item.PublicationYear)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

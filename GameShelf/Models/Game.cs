@@ -9,8 +9,7 @@ namespace GameShelf.Models
     {
         public int ID { get; set; }
         public string Title { get; set; }
-        public DateTime OrigPubYear { get; set; }
-        public int Edition { get; set; }
+        public int PublicationYear { get; set; }
 
         public ICollection<GamePersonRelationship> GamePersonRelationships { get; set; }
     }

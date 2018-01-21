@@ -22,11 +22,7 @@ namespace GameShelf.Controllers
         // GET: Games
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Games
-                .Include(g => g.GamePersonRelationships)
-                .ThenInclude(gpr => gpr.Person)
-                .AsNoTracking()
-                .ToListAsync());
+            return View(await _context.Games.ToListAsync());
         }
 
         // GET: Games/Details/5

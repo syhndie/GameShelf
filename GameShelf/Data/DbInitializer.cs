@@ -17,13 +17,13 @@ namespace GameShelf.Data
 
             var games = new Game[]
             {
-                new Game{Title="Smallworld"},
-                new Game{Title="Scotland Yard"},
-                new Game{Title="Robbits"},
-                new Game{Title="Dungeon Petz"},
-                new Game{Title="Champions of Midgard"},
-                new Game{Title="King of Tokyo"},
-                new Game{Title="Scythe"}
+                new Game{Title="Smallworld", PublicationYear=2009},
+                new Game{Title="Scotland Yard", PublicationYear=1983},
+                new Game{Title="Robbits", PublicationYear=2015},
+                new Game{Title="Dungeon Petz", PublicationYear=2011},
+                new Game{Title="Champions of Midgard", PublicationYear=2015},
+                new Game{Title="King of Tokyo", PublicationYear=2011},
+                new Game{Title="Scythe", PublicationYear=2016}
             };
             foreach (Game g in games)
             {
