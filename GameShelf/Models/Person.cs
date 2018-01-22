@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace GameShelf.Models
 {
@@ -9,8 +10,12 @@ namespace GameShelf.Models
     {
         public int ID { get; set; }
 
+        [Required]
         public string LastName { get; set; }
+
+        [Required]
         public string FirstName { get; set; }
+
         public string FullName
         {
             get
