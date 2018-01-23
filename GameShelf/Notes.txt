@@ -1,1 +1,39 @@
-﻿
+﻿Game Index Page
+	should have a paginated table of all the games
+	the table should include title, pubyear, designer(s), and owner(s)
+	the table should be sortable by any column
+	default sort should be title
+	the table should have a title filter, a designer filter, and an owner filter
+
+Game Create Page
+	title
+	pubyear
+	designer(s)
+		select list of designers already in the database
+			click all 
+			top: "Add Designer(s) to this Game"
+			bottom: "New Designer"								
+	owners(s) 
+		select list of owners already in the database
+			click all
+			top: "Add Owner(s) to this Game"
+			bottom: "New Owner"
+Game Delete Page
+	show game title, pubyear, owner(s), and designer(s)
+	delete button
+	"Back to List" hyperlink
+Game Details Page
+	none, since all details are shown on the Index page
+Game Edit Page
+	title
+	pubyear
+	list of designers related to this game with "remove" button by each
+	select list of designers already in the database
+		click all
+		top: "Add Designer(s) to this Game"
+		bottom: "New Designer"
+	list of owners related to this game with "remove" button by each
+	select list of owners already in the database
+		click all
+		top: "Add Owner(s) to this Game"
+		bottom: "New Owner"
