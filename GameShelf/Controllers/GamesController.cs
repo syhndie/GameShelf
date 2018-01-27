@@ -20,9 +20,10 @@ namespace GameShelf.Controllers
         }
 
         // GET: Games
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Games.ToListAsync());
+            var indexVM = GameIndexViewModel.GetList(_context);
+            return View(indexVM);
         }
 
         // GET: Games/Details/5
