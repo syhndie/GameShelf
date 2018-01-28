@@ -1,7 +1,6 @@
 ﻿Game Index Page
 	DONE: should have a table of all the games
 	DONE: the table should include title, pubyear, designer(s), and owner(s)
-	the table should be paginated
 	the table should be sortable by any column
 	default sort should be title
 	the table should have a title filter, a designer filter, and an owner filter

@@ -20,9 +20,10 @@ namespace GameShelf.Controllers
         }
 
         // GET: Games
-        public IActionResult Index()
+        public IActionResult Index(string titleFilter)
         {
-            var indexVM = GameIndexViewModel.GetList(_context);
+            var indexVM = GameIndexViewModel.GetList(_context, titleFilter);
+
             return View(indexVM);
         }
 
