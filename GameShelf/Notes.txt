@@ -1,9 +1,13 @@
 ﻿Game Index Page
+	Convert GameIndexViewModel from a projection of Game properties that is passed as a list, into an object that CONTAINS the game properties as a list, and also contains filter properties, and is passed to the view as a single object.
+
 	DONE: should have a table of all the games
 	DONE: the table should include title, pubyear, designer(s), and owner(s)
 	the table should be sortable by any column
 	default sort should be title
 	the table should have a title filter, a designer filter, and an owner filter
+
+	get rid of magic strings like "Owner".
 
 Game Create Page
 	title
