@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GameIndexViewModel>;
+﻿@model GameIndexViewModel;
 
 @{
     ViewData["Title"] = "Index";
@@ -20,32 +20,32 @@
     <thead>
         <tr>
             <th>Title</th>
-            <th>Publication Year)</th>
+            <th>Publication Year</th>
             <th>Owners</th>
             <th>Designers</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var gameViewModel in Model)
+        @foreach (var game in Model.GameList)
          {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => gameViewModel.Title)
+                    @game.Title
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => gameViewModel.PublicationYear)
+                    @game.PublicationYear
                 </td>
                 <td>
-                    @Html.Raw(string.Join("<br />", gameViewModel.Owners.Select(p => p.FullName)))
+                    @Html.Raw(string.Join("<br />", game.Owners.Select(p => p.FullName)))
                 </td>
                 <td>
-                    @Html.Raw(string.Join("<br />", gameViewModel.Designers.Select(p => p.FullName)))
+                    @Html.Raw(string.Join("<br />", game.Designers.Select(p => p.FullName)))
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@gameViewModel.ID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@gameViewModel.ID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@gameViewModel.ID">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@game.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@game.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@game.ID">Delete</a>
                 </td>
             </tr>
          }
