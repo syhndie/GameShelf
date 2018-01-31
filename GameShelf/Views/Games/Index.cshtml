@@ -10,12 +10,14 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-@*<div>
+<div>
     <form asp-controller="Games" asp-action="Index" method="get">
-        Title: <input type="text" name="titleFilter" value="@"
+        Title: <input type="text" name="titleFilter" value="@Model.TitleFilter" />
+        Owner: <input type="text" name="ownerFilter" value="@Model.OwnerFilter" />
+        <input type="submit" value="Filter Games" />
 
     </form>
-</div>*@
+</div>
 <table class="table">
     <thead>
         <tr>
