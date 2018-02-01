@@ -12,12 +12,14 @@ namespace GameShelf.Models
         public string TitleFilter { get; set; }
         public string OwnerFilter { get; set; }
         public string DesignerFilter { get; set; }
+        public string Sort { get; set; }
 
-        public GameIndexViewModel (GameShelfContext db, string titleFilter, string ownerFilter, string designerFilter)
+        public GameIndexViewModel (GameShelfContext db, string titleFilter, string ownerFilter, string designerFilter, string sort)
         {
             TitleFilter = titleFilter;
             OwnerFilter = ownerFilter;
             DesignerFilter = designerFilter;
+            Sort = sort;
 
             var gamesIEnum = db.Games
                 .Include(g => g.GamePersonRelationships)
@@ -46,7 +48,23 @@ namespace GameShelf.Models
                 gamesIEnum = gamesIEnum.Where(gpi => gpi.Designers.Any(d => d.FullName.ToLower().Contains(designerFilter.ToLower())));
             }
 
-            GameList = gamesIEnum.ToList();
+
+            if (sort == "title-desc")
+            {
+                GameList = gamesIEnum.OrderByDescending(gpi => gpi.Title).ThenByDescending(gpi => gpi.PublicationYear).ToList();
+            }
+            else if (sort == "year-asc")
+            {
+                GameList = gamesIEnum.OrderBy(gpi => gpi.PublicationYear).ThenBy(gpi => gpi.Title).ToList();
+            }
+            else if (sort == "year-desc")
+            {
+                GameList = gamesIEnum.OrderByDescending(gpi => gpi.PublicationYear).ThenByDescending(gpi => gpi.Title).ToList();
+            }
+            else
+            {
+                GameList = gamesIEnum.OrderBy(gpi => gpi.Title).ThenBy(gpi => gpi.PublicationYear).ToList();
+            }
         }
     }
 }

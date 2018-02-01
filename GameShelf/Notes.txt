@@ -6,8 +6,7 @@
 	DONE: the table should include title, pubyear, designer(s), and owner(s)
 	the table should be sortable by any column
 	default sort should be title
-	the table should have a title filter, a designer filter, and an owner filter
-
+	DONE: the table should have a title filter, a designer filter, and an owner filter
 	get rid of magic strings like "Owner".
 
 Game Create Page

@@ -1,4 +1,9 @@
-﻿body {
+﻿/*Modifications made by Cindy*/
+form {
+    display: inline-block;
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
