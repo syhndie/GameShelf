@@ -11,11 +11,13 @@ namespace GameShelf.Models
         public List<GameWithPersonInfo> GameList { get; set; }
         public string TitleFilter { get; set; }
         public string OwnerFilter { get; set; }
+        public string DesignerFilter { get; set; }
 
-        public GameIndexViewModel (GameShelfContext db, string titleFilter, string ownerFilter)
+        public GameIndexViewModel (GameShelfContext db, string titleFilter, string ownerFilter, string designerFilter)
         {
             TitleFilter = titleFilter;
             OwnerFilter = ownerFilter;
+            DesignerFilter = designerFilter;
 
             var gamesIEnum = db.Games
                 .Include(g => g.GamePersonRelationships)
@@ -37,6 +39,11 @@ namespace GameShelf.Models
             if (!String.IsNullOrEmpty(ownerFilter))
             {
                 gamesIEnum = gamesIEnum.Where(gpi => gpi.Owners.Any(o => o.FullName.ToLower().Contains(ownerFilter.ToLower())));
+            }
+
+            if (!String.IsNullOrEmpty(designerFilter))
+            {
+                gamesIEnum = gamesIEnum.Where(gpi => gpi.Designers.Any(d => d.FullName.ToLower().Contains(designerFilter.ToLower())));
             }
 
             GameList = gamesIEnum.ToList();

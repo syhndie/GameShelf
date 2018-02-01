@@ -20,9 +20,9 @@ namespace GameShelf.Controllers
         }
 
         // GET: Games
-        public IActionResult Index(string titleFilter, string ownerFilter)
+        public IActionResult Index(string titleFilter, string ownerFilter, string designerFilter)
         {
-            var indexVM = new GameIndexViewModel(_context, titleFilter, ownerFilter);
+            var indexVM = new GameIndexViewModel(_context, titleFilter, ownerFilter, designerFilter);
 
             return View(indexVM);
         }
