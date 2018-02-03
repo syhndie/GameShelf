@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20180121213027_Initial.cs" />
     <Compile Remove="Migrations\20180121213027_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20180203020231_ChangedRoleFromStringToEnum.cs" />
+    <Compile Remove="Migrations\20180203020231_ChangedRoleFromStringToEnum.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

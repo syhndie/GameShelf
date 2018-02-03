@@ -4,10 +4,10 @@
 		  and is passed to the view as a single object.
 	DONE: should have a table of all the games
 	DONE: the table should include title, pubyear, designer(s), and owner(s)
-	the table should be sortable by any column
-	default sort should be title
+	DONE: the table should be sortable by any column - changed to sortable by title and year, asc and desc
+	DONE: default sort should be title
 	DONE: the table should have a title filter, a designer filter, and an owner filter
-	get rid of magic strings like "Owner".
+	DONE: get rid of magic strings like "Owner".
 
 Game Create Page
 	title

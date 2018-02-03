@@ -54,23 +54,23 @@ namespace GameShelf.Data
 
             var gamePersonRelationships = new GamePersonRelationship[]
             {
-                new GamePersonRelationship{GameID=1,PersonID=5,Role="Owner"},
-                new GamePersonRelationship{GameID=1,PersonID=6,Role="Designer"},
-                new GamePersonRelationship{GameID=2,PersonID=4,Role="Owner"},
-                new GamePersonRelationship{GameID=2,PersonID=7,Role="Designer"},
-                new GamePersonRelationship{GameID=2,PersonID=8,Role="Designer"},
-                new GamePersonRelationship{GameID=3,PersonID=1,Role="Owner"},
-                new GamePersonRelationship{GameID=3,PersonID=2,Role="Owner"},
-                new GamePersonRelationship{GameID=3,PersonID=1,Role="Designer"},
-                new GamePersonRelationship{GameID=3,PersonID=2,Role="Designer"},
-                new GamePersonRelationship{GameID=4,PersonID=1,Role="Owner"},
-                new GamePersonRelationship{GameID=4,PersonID=9,Role="Designer"},
-                new GamePersonRelationship{GameID=5,PersonID=2,Role="Owner"},
-                new GamePersonRelationship{GameID=5,PersonID=10,Role="Designer"},
-                new GamePersonRelationship{GameID=6,PersonID=3,Role="Owner"},
-                new GamePersonRelationship{GameID=6,PersonID=11,Role="Designer"},
-                new GamePersonRelationship{GameID=7,PersonID=5,Role="Owner"},
-                new GamePersonRelationship{GameID=7,PersonID=12,Role="Designer"}
+                new GamePersonRelationship{GameID=1,PersonID=5,Role=Role.Owner},
+                new GamePersonRelationship{GameID=1,PersonID=6,Role=Role.Designer},
+                new GamePersonRelationship{GameID=2,PersonID=4,Role=Role.Owner},
+                new GamePersonRelationship{GameID=2,PersonID=7,Role=Role.Designer},
+                new GamePersonRelationship{GameID=2,PersonID=8,Role=Role.Designer},
+                new GamePersonRelationship{GameID=3,PersonID=1,Role=Role.Owner},
+                new GamePersonRelationship{GameID=3,PersonID=2,Role=Role.Owner},
+                new GamePersonRelationship{GameID=3,PersonID=1,Role=Role.Designer},
+                new GamePersonRelationship{GameID=3,PersonID=2,Role=Role.Designer},
+                new GamePersonRelationship{GameID=4,PersonID=1,Role=Role.Owner},
+                new GamePersonRelationship{GameID=4,PersonID=9,Role=Role.Designer},
+                new GamePersonRelationship{GameID=5,PersonID=2,Role=Role.Owner},
+                new GamePersonRelationship{GameID=5,PersonID=10,Role=Role.Designer},
+                new GamePersonRelationship{GameID=6,PersonID=3,Role=Role.Owner},
+                new GamePersonRelationship{GameID=6,PersonID=11,Role=Role.Designer},
+                new GamePersonRelationship{GameID=7,PersonID=5,Role=Role.Owner},
+                new GamePersonRelationship{GameID=7,PersonID=12,Role=Role.Designer}
             };
             foreach (GamePersonRelationship gpr in gamePersonRelationships)
             {

@@ -29,8 +29,8 @@ namespace GameShelf.Models
                     ID = g.ID,
                     Title = g.Title,
                     PublicationYear = g.PublicationYear,
-                    Owners = g.GamePersonRelationships.Where(gpr => gpr.Role == "Owner").Select(gpr => gpr.Person).ToList(),
-                    Designers = g.GamePersonRelationships.Where(gpr => gpr.Role == "Designer").Select(gpr => gpr.Person).ToList()
+                    Owners = g.GamePersonRelationships.Where(gpr => gpr.Role == Role.Owner).Select(gpr => gpr.Person).ToList(),
+                    Designers = g.GamePersonRelationships.Where(gpr => gpr.Role == Role.Designer).Select(gpr => gpr.Person).ToList()
                 });
 
             if (!String.IsNullOrEmpty(titleFilter))
