@@ -15,15 +15,29 @@ namespace GameShelf.Data
                 return;
             }
 
+            var playTimes = new PlayTime[]
+            {
+                new PlayTime {PlayTimeCategory="Less Than an Hour"},
+                new PlayTime {PlayTimeCategory="About an Hour"},
+                new PlayTime {PlayTimeCategory="About 2 Hours"},
+                new PlayTime {PlayTimeCategory="More than 2 Hours"}
+            };
+            foreach (PlayTime pt in playTimes)
+            {
+                context.Playtimes.Add(pt);
+            }
+            context.SaveChanges();
+
+
             var games = new Game[]
             {
-                new Game{Title="Smallworld", PublicationYear=2009},
-                new Game{Title="Scotland Yard", PublicationYear=1983},
-                new Game{Title="Robbits", PublicationYear=2015},
-                new Game{Title="Dungeon Petz", PublicationYear=2011},
-                new Game{Title="Champions of Midgard", PublicationYear=2015},
-                new Game{Title="King of Tokyo", PublicationYear=2011},
-                new Game{Title="Scythe", PublicationYear=2016}
+                new Game{Title="Smallworld", PublicationYear=2009, PlayTime=playTimes[1] }, 
+                new Game{Title="Scotland Yard", PublicationYear=1983, PlayTime=playTimes[2]},
+                new Game{Title="Robbits", PublicationYear=2015, PlayTime=playTimes[1]}, 
+                new Game{Title="Dungeon Petz", PublicationYear=2011, PlayTime=playTimes[3]}, 
+                new Game{Title="Champions of Midgard", PublicationYear=2015, PlayTime=playTimes[2]}, 
+                new Game{Title="King of Tokyo", PublicationYear=2011, PlayTime=playTimes[1]}, 
+                new Game{Title="Scythe", PublicationYear=2016, PlayTime=playTimes[2]} 
             };
             foreach (Game g in games)
             {

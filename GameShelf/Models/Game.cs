@@ -16,5 +16,7 @@ namespace GameShelf.Models
         public int? PublicationYear { get; set; }
 
         public ICollection<GamePersonRelationship> GamePersonRelationships { get; set; }
+
+        public PlayTime PlayTime { get; set; }
     }
 }

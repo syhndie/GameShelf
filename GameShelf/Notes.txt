@@ -8,6 +8,8 @@
 	DONE: default sort should be title
 	DONE: the table should have a title filter, a designer filter, and an owner filter
 	DONE: get rid of magic strings like "Owner".
+	add number of players: two int properties = min and max
+	add time to play: with lookup table and categories
 
 Game Create Page
 	title

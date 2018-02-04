@@ -9,6 +9,8 @@
     <Compile Remove="Migrations\20180121213027_Initial.Designer.cs" />
     <Compile Remove="Migrations\20180203020231_ChangedRoleFromStringToEnum.cs" />
     <Compile Remove="Migrations\20180203020231_ChangedRoleFromStringToEnum.Designer.cs" />
+    <Compile Remove="Migrations\20180204190634_FixedManyToOneRelationshipWithGameAndPlayTime.cs" />
+    <Compile Remove="Migrations\20180204190634_FixedManyToOneRelationshipWithGameAndPlayTime.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -12,9 +12,10 @@ using System;
 namespace GameShelf.Migrations
 {
     [DbContext(typeof(GameShelfContext))]
-    partial class GameShelfContextModelSnapshot : ModelSnapshot
+    [Migration("20180204191515_FixingGameToPlayTimeRelationship")]
+    partial class FixingGameToPlayTimeRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,16 +27,12 @@ namespace GameShelf.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("PlayTimeID");
-
                     b.Property<int?>("PublicationYear");
 
                     b.Property<string>("Title")
                         .IsRequired();
 
                     b.HasKey("ID");
-
-                    b.HasIndex("PlayTimeID");
 
                     b.ToTable("Games");
                 });
@@ -53,6 +50,19 @@ namespace GameShelf.Migrations
                     b.HasIndex("PersonID");
 
                     b.ToTable("Relationships");
+                });
+
+            modelBuilder.Entity("GameShelf.Models.GamePlayTime", b =>
+                {
+                    b.Property<int>("GameID");
+
+                    b.Property<int>("PlayTimeID");
+
+                    b.HasKey("GameID");
+
+                    b.HasIndex("PlayTimeID");
+
+                    b.ToTable("GamePlayTimeLookups");
                 });
 
             modelBuilder.Entity("GameShelf.Models.Person", b =>
@@ -84,13 +94,6 @@ namespace GameShelf.Migrations
                     b.ToTable("Playtimes");
                 });
 
-            modelBuilder.Entity("GameShelf.Models.Game", b =>
-                {
-                    b.HasOne("GameShelf.Models.PlayTime", "PlayTime")
-                        .WithMany("Games")
-                        .HasForeignKey("PlayTimeID");
-                });
-
             modelBuilder.Entity("GameShelf.Models.GamePersonRelationship", b =>
                 {
                     b.HasOne("GameShelf.Models.Game", "Game")
@@ -101,6 +104,19 @@ namespace GameShelf.Migrations
                     b.HasOne("GameShelf.Models.Person", "Person")
                         .WithMany("RelatedGames")
                         .HasForeignKey("PersonID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("GameShelf.Models.GamePlayTime", b =>
+                {
+                    b.HasOne("GameShelf.Models.Game", "Game")
+                        .WithOne("GamePlayTime")
+                        .HasForeignKey("GameShelf.Models.GamePlayTime", "GameID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("GameShelf.Models.PlayTime", "PlayTime")
+                        .WithMany("GamePlayTimeLookups")
+                        .HasForeignKey("PlayTimeID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

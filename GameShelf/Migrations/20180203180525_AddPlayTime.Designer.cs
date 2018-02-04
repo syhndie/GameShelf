@@ -12,9 +12,10 @@ using System;
 namespace GameShelf.Migrations
 {
     [DbContext(typeof(GameShelfContext))]
-    partial class GameShelfContextModelSnapshot : ModelSnapshot
+    [Migration("20180203180525_AddPlayTime")]
+    partial class AddPlayTime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,6 +56,19 @@ namespace GameShelf.Migrations
                     b.ToTable("Relationships");
                 });
 
+            modelBuilder.Entity("GameShelf.Models.GamePlayTime", b =>
+                {
+                    b.Property<int>("GameID");
+
+                    b.Property<int>("PlaytimeID");
+
+                    b.HasKey("GameID");
+
+                    b.HasIndex("PlaytimeID");
+
+                    b.ToTable("GamePlayTimeLookups");
+                });
+
             modelBuilder.Entity("GameShelf.Models.Person", b =>
                 {
                     b.Property<int>("ID")
@@ -86,8 +100,8 @@ namespace GameShelf.Migrations
 
             modelBuilder.Entity("GameShelf.Models.Game", b =>
                 {
-                    b.HasOne("GameShelf.Models.PlayTime", "PlayTime")
-                        .WithMany("Games")
+                    b.HasOne("GameShelf.Models.PlayTime")
+                        .WithMany("RelatedGames")
                         .HasForeignKey("PlayTimeID");
                 });
 
@@ -101,6 +115,19 @@ namespace GameShelf.Migrations
                     b.HasOne("GameShelf.Models.Person", "Person")
                         .WithMany("RelatedGames")
                         .HasForeignKey("PersonID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("GameShelf.Models.GamePlayTime", b =>
+                {
+                    b.HasOne("GameShelf.Models.Game", "Game")
+                        .WithOne("GamePlayTime")
+                        .HasForeignKey("GameShelf.Models.GamePlayTime", "GameID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("GameShelf.Models.PlayTime", "PlayTime")
+                        .WithMany()
+                        .HasForeignKey("PlaytimeID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -22,8 +22,10 @@ namespace GameShelf.Data
                 table.Role
             });
         }
+
         public DbSet<Game> Games { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<GamePersonRelationship> Relationships { get; set; }
+        public DbSet<PlayTime> Playtimes { get; set; }
     }
 }
