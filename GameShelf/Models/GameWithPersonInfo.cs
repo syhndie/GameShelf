@@ -11,6 +11,7 @@ namespace GameShelf.Models
         public int ID { get; set; }
         public string Title { get; set; }
         public int? PublicationYear { get; set; }
+        public PlayTime PlayTime { get; set; }
         public List<Person> Owners { get; set; }
         public List<Person> Designers { get; set; }
     }

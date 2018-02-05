@@ -40,6 +40,7 @@
             <th>
                 <a href="/Games?titleFilter=@(Model.TitleFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "year-asc" ? "year-desc" : "year-asc")">Publication Year</a>
             </th>
+            <th>PlayingTime</th>
             <th>Owners</th>
             <th>Designers</th>
             <th></th>
@@ -54,6 +55,9 @@
                 </td>
                 <td>
                     @game.PublicationYear
+                </td>
+                <td>
+                    @game.PlayTime.PlayTimeCategory
                 </td>
                 <td>
                     @Html.Raw(string.Join("<br />", game.Owners.Select(p => p.FullName)))
