@@ -31,13 +31,13 @@ namespace GameShelf.Data
 
             var games = new Game[]
             {
-                new Game{Title="Smallworld", PublicationYear=2009, PlayTime=playTimes[1] }, 
-                new Game{Title="Scotland Yard", PublicationYear=1983, PlayTime=playTimes[2]},
-                new Game{Title="Robbits", PublicationYear=2015, PlayTime=playTimes[1]}, 
-                new Game{Title="Dungeon Petz", PublicationYear=2011, PlayTime=playTimes[3]}, 
-                new Game{Title="Champions of Midgard", PublicationYear=2015, PlayTime=playTimes[2]}, 
-                new Game{Title="King of Tokyo", PublicationYear=2011, PlayTime=playTimes[1]}, 
-                new Game{Title="Scythe", PublicationYear=2016, PlayTime=playTimes[2]} 
+                new Game{Title="Smallworld", PublicationYear=2009, MinPlayers=2, MaxPlayers=5, PlayTime=playTimes[1] }, 
+                new Game{Title="Scotland Yard", PublicationYear=1983, MinPlayers=3, MaxPlayers=6, PlayTime=playTimes[2]},
+                new Game{Title="Robbits", PublicationYear=2015, MinPlayers=4, MaxPlayers=4, PlayTime=playTimes[1]}, 
+                new Game{Title="Dungeon Petz", PublicationYear=2011, MinPlayers=2, MaxPlayers=4, PlayTime=playTimes[3]}, 
+                new Game{Title="Champions of Midgard", PublicationYear=2015, MinPlayers=2, MaxPlayers=4, PlayTime=playTimes[2]}, 
+                new Game{Title="King of Tokyo", PublicationYear=2011, MinPlayers=2, MaxPlayers=6, PlayTime=playTimes[1]}, 
+                new Game{Title="Scythe", PublicationYear=2016, MinPlayers=1, MaxPlayers=5, PlayTime=playTimes[2]} 
             };
             foreach (Game g in games)
             {
