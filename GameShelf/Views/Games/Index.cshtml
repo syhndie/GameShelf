@@ -19,14 +19,20 @@
     <thead>
         <tr>
             <th>
-                <a href="/Games?titleFilter=@(Model.TitleFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "title-asc" ? "title-desc" : "title-asc")">Title</a>
+                <a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "title-asc" ? "title-desc" : "title-asc")">Title</a>
             </th>
             <th>
-                <a href="/Games?titleFilter=@(Model.TitleFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "year-asc" ? "year-desc" : "year-asc")">Publication Year</a>
+                <a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "year-asc" ? "year-desc" : "year-asc")">Publication Year</a>
             </th>
-            <th>Playing Time</th>
-            <th>Minimum Players</th>
-            <th>Maximum Players</th>
+            <th>
+                <a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "time-asc" ? "time-desc" : "time-asc")">Playing Time</a>
+            </th>
+            <th>
+                <a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "minplay-asc" ? "minplay-desc" : "minplay-asc")">Minimum Players</a>
+            </th>
+            <th>
+                <a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "maxplay-asc" ? "maxplay-desc" : "maxplay-asc")">Maximum Players</a>
+            </th>
             <th>Owners</th>
             <th>Designers</th>
             <th></th>
@@ -36,9 +42,10 @@
         <tr>
             <td colspan="8">
                     <form asp-controller="Games" asp-action="Index" method="get">
-                        Title: <input type="text" name="titleFilter" value="@Model.TitleFilter" /> &nbsp;
-                        Owner: <input type="text" name="ownerFilter" value="@Model.OwnerFilter" /> &nbsp;
-                        Designer: <input type="text" name="designerFilter" value="@Model.DesignerFilter" />
+                        <input type="text" name="titleFilter" value="@Model.TitleFilter" /> &nbsp;
+                        <input type="text" name="yearFilter" value="@Model.YearFilter" /> &nbsp;
+                        <input type="text" name="ownerFilter" value="@Model.OwnerFilter" /> &nbsp;
+                        <input type="text" name="designerFilter" value="@Model.DesignerFilter" />
                         <input type="hidden" name="sort" value="@(Model.Sort)" />
                         <input type="submit" value="Filter Games" />
                     </form>

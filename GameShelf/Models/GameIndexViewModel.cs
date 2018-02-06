@@ -10,13 +10,15 @@ namespace GameShelf.Models
     {
         public List<GameWithPersonInfo> GameList { get; set; }
         public string TitleFilter { get; set; }
+        public string YearFilter { get; set; }
         public string OwnerFilter { get; set; }
         public string DesignerFilter { get; set; }
         public string Sort { get; set; }
 
-        public GameIndexViewModel (GameShelfContext db, string titleFilter, string ownerFilter, string designerFilter, string sort)
+        public GameIndexViewModel (GameShelfContext db, string titleFilter, string yearFilter, string ownerFilter, string designerFilter, string sort)
         {
             TitleFilter = titleFilter;
+            YearFilter = yearFilter;
             OwnerFilter = ownerFilter;
             DesignerFilter = designerFilter;
             Sort = sort;
@@ -41,6 +43,11 @@ namespace GameShelf.Models
                 gamesIEnum = gamesIEnum.Where(gpi => gpi.Title.ToLower().Contains(titleFilter.ToLower()));
             } 
 
+            if (!String.IsNullOrEmpty(yearFilter))
+            {
+                gamesIEnum = gamesIEnum.Where(gpi => gpi.PublicationYear.ToString().ToLower().Contains(yearFilter.ToLower()));
+            }
+
             if (!String.IsNullOrEmpty(ownerFilter))
             {
                 gamesIEnum = gamesIEnum.Where(gpi => gpi.Owners.Any(o => o.FullName.ToLower().Contains(ownerFilter.ToLower())));
@@ -63,6 +70,30 @@ namespace GameShelf.Models
             else if (sort == "year-desc")
             {
                 GameList = gamesIEnum.OrderByDescending(gpi => gpi.PublicationYear).ThenByDescending(gpi => gpi.Title).ToList();
+            }
+            else if (sort == "time-asc")
+            {
+                GameList = gamesIEnum.OrderBy(gpi => gpi.PlayTime).ThenBy(gpi => gpi.Title).ToList();
+            }
+            else if (sort == "time-desc")
+            {
+                GameList = gamesIEnum.OrderByDescending(gpi => gpi.PlayTime).ThenByDescending(gpi => gpi.Title).ToList();
+            }
+            else if (sort == "minplay-asc")
+            {
+                GameList = gamesIEnum.OrderBy(gpi => gpi.MinPlayers).ThenBy(gpi => gpi.Title).ToList();
+            }
+            else if (sort == "minplay-desc")
+            {
+                GameList = gamesIEnum.OrderByDescending(gpi => gpi.MinPlayers).ThenByDescending(gpi => gpi.Title).ToList();
+            }
+            else if (sort == "maxplay-asc")
+            {
+                GameList = gamesIEnum.OrderBy(gpi => gpi.MaxPlayers).ThenBy(gpi => gpi.Title).ToList();
+            }
+            else if (sort == "maxplay-desc")
+            {
+                GameList = gamesIEnum.OrderByDescending(gpi => gpi.MaxPlayers).ThenByDescending(gpi => gpi.Title).ToList();
             }
             else
             {
