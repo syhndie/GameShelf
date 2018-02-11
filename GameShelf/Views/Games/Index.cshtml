@@ -11,63 +11,78 @@
     <br />
 </p>
 
-
-
 <br /><br />
+<form asp-controller="Games" asp-action="Index" method="get">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @*Title*@
+                    <a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "title-asc" ? "title-desc" : "title-asc")">Title</a>
+                </th>
+@*              <th>
+                    Publication Year
+                    @*<a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "year-asc" ? "year-desc" : "year-asc")">Publication Year</a>
+                </th>
+*@
+                <th>
+                    @*Playing Time*@
+                    <a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "time-asc" ? "time-desc" : "time-asc")">Playing Time</a>
+                </th>
+                <th>
+                    @*Minimum Players*@
+                    <a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "minplay-asc" ? "minplay-desc" : "minplay-asc")">Minimum <br /> Players</a>
+                </th>
+                <th>
+                    @*Maximum Players*@
+                    <a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "maxplay-asc" ? "maxplay-desc" : "maxplay-asc")">Maximum <br />  Players</a>
+                </th>
+                <th>Owners</th>
+                <th>Designers</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <input class="form-control" type="text" name="titleFilter" value="@Model.TitleFilter" />
+                </td>
+@*              <td>
+                    <input class="form-control" type="text" name="yearFilter" value="@(Model.YearFilter == 0 ? "" : Model.YearFilter.ToString())" placeholder="yyyy" />
+                </td>
+*@
+                <td>
+                    <select class="form-control" asp-for="PlayTimeFilter" asp-items="@Model.PlayTimeSelect">
+                        <option value="">Select Playing Time</option>
+                    </select>
+                </td>
+                <td>
+                    <input id="short-text-box" class="form-control" type="text" name="minFilter" value="@(Model.MinFilter == 0 ? "" : Model.MinFilter.ToString())" />
+                </td>
+                <td>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "title-asc" ? "title-desc" : "title-asc")">Title</a>
-            </th>
-            <th>
-                <a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "year-asc" ? "year-desc" : "year-asc")">Publication Year</a>
-            </th>
-            <th>
-                <a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "time-asc" ? "time-desc" : "time-asc")">Playing Time</a>
-            </th>
-            <th>
-                <a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "minplay-asc" ? "minplay-desc" : "minplay-asc")">Minimum Players</a>
-            </th>
-            <th>
-                <a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "maxplay-asc" ? "maxplay-desc" : "maxplay-asc")">Maximum Players</a>
-            </th>
-            <th>Owners</th>
-            <th>Designers</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td colspan="8">
-                    <form asp-controller="Games" asp-action="Index" method="get">
-                        <input type="text" name="titleFilter" value="@Model.TitleFilter" /> &nbsp;
-                        <input type="text" name="yearFilter" value="@Model.YearFilter" /> &nbsp;
-                        <input type="text" name="ownerFilter" value="@Model.OwnerFilter" /> &nbsp;
-                        <input type="text" name="designerFilter" value="@Model.DesignerFilter" />
-                        <input type="hidden" name="sort" value="@(Model.Sort)" />
-                        <input type="submit" value="Filter Games" />
-                    </form>
-
-                    <form asp-controller="Games" asp-action="Index" method="get">
-                        <input type="hidden" name="titleFilter" value="" />
-                        <input type="hidden" name="ownerFilter" value="" />
-                        <input type="hidden" name="designerFilter" value="" />
-                        <input type="hidden" name="sort" value="@(Model.Sort)" />
-                        <input type="submit" value="Clear Filter" />
-                    </form>
-            </td>
-        </tr>
+                </td>
+                <td>
+                    <input class="form-control" type="text" name="ownerFilter" value="@Model.OwnerFilter" />
+                </td>
+                <td>
+                    <input class="form-control" type="text" name="designerFilter" value="@Model.DesignerFilter" />
+                </td>
+                <td>
+                    <input type="hidden" name="sort" value="@(Model.Sort)" />
+                    <input class="form-control" type="submit" value="Filter Games" />
+                </td>            
+            </tr>
         @foreach (var game in Model.GameList)
-        {
+         {
             <tr>
                 <td>
                     @game.Title
                 </td>
-                <td>
+@*              <td>
                     @game.PublicationYear
                 </td>
+*@
                 <td>
                     @game.PlayTime.PlayTimeCategory
                 </td>
@@ -89,6 +104,7 @@
                     <a asp-action="Delete" asp-route-id="@game.ID">Delete</a>
                 </td>
             </tr>
-        }
-    </tbody>
-</table>
+         }
+        </tbody>
+    </table>
+</form>

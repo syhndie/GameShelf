@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using GameShelf.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using GameShelf.Models;
+
+
 
 namespace GameShelf.Models
 {
@@ -10,18 +14,36 @@ namespace GameShelf.Models
     {
         public List<GameWithPersonInfo> GameList { get; set; }
         public string TitleFilter { get; set; }
-        public string YearFilter { get; set; }
+        public int YearFilter { get; set; }
+        public string PlayTimeFilter { get; set; }
+        public int MinFilter { get; set; }
         public string OwnerFilter { get; set; }
         public string DesignerFilter { get; set; }
         public string Sort { get; set; }
+        public SelectList PlayTimeSelect { get; set; }
 
-        public GameIndexViewModel (GameShelfContext db, string titleFilter, string yearFilter, string ownerFilter, string designerFilter, string sort)
+        public GameIndexViewModel (
+            GameShelfContext db, 
+            string titleFilter, 
+            int yearFilter, 
+            int minFilter,
+            string playTimeFilter,
+            string ownerFilter, 
+            string designerFilter, 
+            string sort)
         {
             TitleFilter = titleFilter;
             YearFilter = yearFilter;
+            MinFilter = minFilter;
+            PlayTimeFilter = playTimeFilter;
             OwnerFilter = ownerFilter;
             DesignerFilter = designerFilter;
             Sort = sort;
+
+            var playTimeQuery = from pt in db.Playtimes
+                                orderby pt.ID
+                                select pt;
+            PlayTimeSelect = new SelectList(playTimeQuery, "PlayTimeCategory", "PlayTimeCategory");
 
             var gamesIEnum = db.Games
                 .Include(g => g.GamePersonRelationships)
@@ -43,9 +65,19 @@ namespace GameShelf.Models
                 gamesIEnum = gamesIEnum.Where(gpi => gpi.Title.ToLower().Contains(titleFilter.ToLower()));
             } 
 
-            if (!String.IsNullOrEmpty(yearFilter))
+            if (yearFilter != 0)
             {
-                gamesIEnum = gamesIEnum.Where(gpi => gpi.PublicationYear.ToString().ToLower().Contains(yearFilter.ToLower()));
+                gamesIEnum = gamesIEnum.Where(gpi => gpi.PublicationYear == yearFilter);
+            }
+
+            if (minFilter != 0)
+            {
+                gamesIEnum = gamesIEnum.Where(gpi => gpi.MinPlayers == minFilter);
+            }
+
+            if (!String.IsNullOrEmpty(playTimeFilter))
+            {
+                gamesIEnum = gamesIEnum.Where(gpi => gpi.PlayTime.PlayTimeCategory == playTimeFilter);
             }
 
             if (!String.IsNullOrEmpty(ownerFilter))
@@ -57,7 +89,6 @@ namespace GameShelf.Models
             {
                 gamesIEnum = gamesIEnum.Where(gpi => gpi.Designers.Any(d => d.FullName.ToLower().Contains(designerFilter.ToLower())));
             }
-
 
             if (sort == "title-desc")
             {

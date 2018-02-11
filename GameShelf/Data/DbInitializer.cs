@@ -20,7 +20,7 @@ namespace GameShelf.Data
                 new PlayTime {PlayTimeCategory="Less Than an Hour"},
                 new PlayTime {PlayTimeCategory="About an Hour"},
                 new PlayTime {PlayTimeCategory="About 2 Hours"},
-                new PlayTime {PlayTimeCategory="More than 2 Hours"}
+                new PlayTime {PlayTimeCategory="More Than 2 Hours"}
             };
             foreach (PlayTime pt in playTimes)
             {
