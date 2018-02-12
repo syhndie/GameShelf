@@ -17,6 +17,7 @@ namespace GameShelf.Models
         public int YearFilter { get; set; }
         public string PlayTimeFilter { get; set; }
         public int MinFilter { get; set; }
+        public int MaxFilter { get; set; }
         public string OwnerFilter { get; set; }
         public string DesignerFilter { get; set; }
         public string Sort { get; set; }
@@ -27,6 +28,7 @@ namespace GameShelf.Models
             string titleFilter, 
             int yearFilter, 
             int minFilter,
+            int maxFilter,
             string playTimeFilter,
             string ownerFilter, 
             string designerFilter, 
@@ -35,6 +37,7 @@ namespace GameShelf.Models
             TitleFilter = titleFilter;
             YearFilter = yearFilter;
             MinFilter = minFilter;
+            MaxFilter = maxFilter;
             PlayTimeFilter = playTimeFilter;
             OwnerFilter = ownerFilter;
             DesignerFilter = designerFilter;
@@ -73,6 +76,11 @@ namespace GameShelf.Models
             if (minFilter != 0)
             {
                 gamesIEnum = gamesIEnum.Where(gpi => gpi.MinPlayers == minFilter);
+            }
+
+            if (maxFilter != 0)
+            {
+                gamesIEnum = gamesIEnum.Where(gpi => gpi.MaxPlayers == maxFilter);
             }
 
             if (!String.IsNullOrEmpty(playTimeFilter))
