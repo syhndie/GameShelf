@@ -11,6 +11,7 @@ namespace GameShelf.Models
         public int ID { get; set; }
 
         [Required]
+        [Display(Name ="Playing Time")]
         public string PlayTimeCategory { get; set; }
 
         public ICollection<Game> Games { get; set; }

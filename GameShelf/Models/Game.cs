@@ -15,6 +15,7 @@ namespace GameShelf.Models
 
         public int? PublicationYear { get; set; }
 
+        [Display(Name ="Minimum Players")]
         public int MinPlayers { get; set; }
 
         public int MaxPlayers { get; set; }

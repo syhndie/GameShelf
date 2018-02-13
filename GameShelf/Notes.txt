@@ -1,19 +1,14 @@
-﻿Game Index Page
-	DONE: Convert GameIndexViewModel from a projection of Game properties that is passed as a list, 
-		  into an object that CONTAINS the game properties as a list, and also contains filter properties, 
-		  and is passed to the view as a single object.
-	DONE: should have a table of all the games
-	DONE: the table should include title, pubyear, designer(s), and owner(s)
-	DONE: the table should be sortable by any column - changed to sortable by title and year, asc and desc
-	DONE: default sort should be title
-	DONE: the table should have a title filter, a designer filter, and an owner filter
-	DONE: get rid of magic strings like "Owner".
-	DONE: add number of players: two int properties = min and max
-	DONE: add time to play: with lookup table and categories
+﻿Drop Publication Year
+	from the game model
+	from the gameindexviewmodel
+	from the database
 
 Game Create Page
+	"back to my games" hyperlink
 	title
-	pubyear
+	playing time select list
+	min players
+	max players
 	designer(s)
 		select list of designers already in the database
 			click all 
@@ -24,15 +19,17 @@ Game Create Page
 			click all
 			top: "Add Owner(s) to this Game"
 			bottom: "New Owner"
+
 Game Delete Page
-	show game title, pubyear, owner(s), and designer(s)
+	show game title, playting time, min players, max players, owner(s), and designer(s)
 	delete button
-	"Back to List" hyperlink
-Game Details Page
-	DONE: none, since all details are shown on the Index page
+	"Back to My Games" hyperlink
+
 Game Edit Page
 	title
-	pubyear
+	playing time select list
+	min players
+	max players
 	list of designers related to this game with "remove" button by each
 	select list of designers already in the database
 		click all

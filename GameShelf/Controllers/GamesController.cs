@@ -126,7 +126,23 @@ namespace GameShelf.Controllers
                 return NotFound();
             }
 
+            //var gamesIEnum = db.Games
+            //    .Include(g => g.GamePersonRelationships)
+            //    .ThenInclude(gpr => gpr.Person)
+            //    .Select(g => new GameWithPersonInfo
+            //    {
+            //        ID = g.ID,
+            //        Title = g.Title,
+            //        PublicationYear = g.PublicationYear,
+            //        MinPlayers = g.MinPlayers,
+            //        MaxPlayers = g.MaxPlayers,
+            //        PlayTime = g.PlayTime,
+            //        Owners = g.GamePersonRelationships.Where(gpr => gpr.Role == Role.Owner).Select(gpr => gpr.Person).ToList(),
+            //        Designers = g.GamePersonRelationships.Where(gpr => gpr.Role == Role.Designer).Select(gpr => gpr.Person).ToList()
+            //    });
+
             var game = await _context.Games
+                .Include(g => g.PlayTime)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (game == null)
             {
