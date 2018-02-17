@@ -128,13 +128,18 @@ namespace GameShelf.Controllers
 
             var game = await _context.Games
                 .Include(g => g.PlayTime)
+                .Include(g => g.GamePersonRelationships)
+                .ThenInclude(gpr => gpr.Person)
                 .SingleOrDefaultAsync(m => m.ID == id);
-            if (game == null)
+
+            var gpi = new GameWithPersonInfo(game);
+
+            if (gpi == null)
             {
                 return NotFound();
             }
 
-            return View(game);
+            return View(gpi);
         }
 
         // POST: Games/Delete/5

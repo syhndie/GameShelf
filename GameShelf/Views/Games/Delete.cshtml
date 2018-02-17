@@ -1,4 +1,4 @@
-﻿@model GameShelf.Models.Game
+﻿@model GameShelf.Models.GameWithPersonInfo
 
 @{
     ViewData["Title"] = "Delete";
@@ -33,6 +33,18 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.MaxPlayers)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Designers)
+        </dt>
+        <dd>
+          @Html.Raw(String.Join("<br>", Model.Designers.Select(d => d.FullName)))
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Owners)
+        </dt>
+        <dd>
+            @Html.Raw(String.Join("<br>", Model.Owners.Select(o => o.FullName)))
         </dd>
     </dl>
     

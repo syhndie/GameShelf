@@ -49,19 +49,12 @@ namespace GameShelf.Models
             PlayTimeSelect = new SelectList(playTimeQuery, "PlayTimeCategory", "PlayTimeCategory");
 
             var gamesIEnum = db.Games
+                .Include(g => g.PlayTime)
                 .Include(g => g.GamePersonRelationships)
                 .ThenInclude(gpr => gpr.Person)
-                .Select(g => new GameWithPersonInfo
-                {
-                    ID = g.ID,
-                    Title = g.Title,
-                    PublicationYear = g.PublicationYear,
-                    MinPlayers = g.MinPlayers,
-                    MaxPlayers = g.MaxPlayers,
-                    PlayTime = g.PlayTime,
-                    Owners = g.GamePersonRelationships.Where(gpr => gpr.Role == Role.Owner).Select(gpr => gpr.Person).ToList(),
-                    Designers = g.GamePersonRelationships.Where(gpr => gpr.Role == Role.Designer).Select(gpr => gpr.Person).ToList()
-                });
+                .ToList()
+                //CINDY FIX THIS TO USE THE NEW CONSTRUCTOR
+                .Select(g => new GameWithPersonInfo(g));
 
             if (!String.IsNullOrEmpty(titleFilter))
             {
