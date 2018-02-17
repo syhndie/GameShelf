@@ -20,11 +20,6 @@ Game Create Page
 			top: "Add Owner(s) to this Game"
 			bottom: "New Owner"
 
-Game Delete Page
-	show game title, playting time, min players, max players, owner(s), and designer(s)
-	delete button
-	"Back to My Games" hyperlink
-
 Game Edit Page
 	title
 	playing time select list
