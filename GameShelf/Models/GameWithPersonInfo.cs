@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GameShelf.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GameShelf.Models
 {
@@ -30,6 +32,23 @@ namespace GameShelf.Models
             PlayTime = game.PlayTime;
             Owners = game.GamePersonRelationships.Where(gpr => gpr.Role == Role.Owner).Select(gpr => gpr.Person).ToList();
             Designers = game.GamePersonRelationships.Where(gpr => gpr.Role == Role.Designer).Select(gpr => gpr.Person).ToList();
+        }
+
+        public GameWithPersonInfo(GameShelfContext _context, int id)
+        {
+            ID = id;
+            var gameWithPersonInfo = _context.Games
+                .Include(g => g.PlayTime)
+                .Include(g => g.GamePersonRelationships)
+                .ThenInclude(gpi => gpi.Person)
+                .Single(m => m.ID == id);
+            Title = gameWithPersonInfo.Title;
+            PublicationYear = gameWithPersonInfo.PublicationYear;
+            MinPlayers = gameWithPersonInfo.MinPlayers;
+            MaxPlayers = gameWithPersonInfo.MaxPlayers;
+            PlayTime = gameWithPersonInfo.PlayTime;
+            Owners = gameWithPersonInfo.GamePersonRelationships.Where(gpr => gpr.Role == Role.Owner).Select(gpr => gpr.Person).ToList();
+            Designers = gameWithPersonInfo.GamePersonRelationships.Where(gpr => gpr.Role == Role.Designer).Select(gpr => gpr.Person).ToList();
         }
     }
 }

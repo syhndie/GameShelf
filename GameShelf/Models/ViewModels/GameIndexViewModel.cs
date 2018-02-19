@@ -53,7 +53,6 @@ namespace GameShelf.Models
                 .Include(g => g.GamePersonRelationships)
                 .ThenInclude(gpr => gpr.Person)
                 .ToList()
-                //CINDY FIX THIS TO USE THE NEW CONSTRUCTOR
                 .Select(g => new GameWithPersonInfo(g));
 
             if (!String.IsNullOrEmpty(titleFilter))

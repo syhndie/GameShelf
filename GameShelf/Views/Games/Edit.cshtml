@@ -1,4 +1,4 @@
-﻿@model GameShelf.Models.Game
+﻿@model GameShelf.Models.ViewModels.GameEditViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -6,22 +6,27 @@
 
 <h2>Edit</h2>
 
-<h4>Game</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ID" />
+            <input type="hidden" asp-for="GameWithPersonInfo.ID" />
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <label asp-for="GameWithPersonInfo.Title" class="control-label"></label>
+                <input asp-for="GameWithPersonInfo.Title" class="form-control" />
+                <span asp-validation-for="GameWithPersonInfo.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PublicationYear" class="control-label"></label>
-                <input asp-for="PublicationYear" class="form-control" />
-                <span asp-validation-for="PublicationYear" class="text-danger"></span>
+                <label asp-for="GameWithPersonInfo.PublicationYear" class="control-label"></label>
+                <input asp-for="GameWithPersonInfo.PublicationYear" class="form-control" />
+                <span asp-validation-for="GameWithPersonInfo.PublicationYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GameWithPersonInfo.PlayTime.PlayTimeCategory" class="control-label"></label>
+                <select class="form-control" asp-for="GameWithPersonInfo.PlayTime" asp-items="@Model.PlayTimeSelect">
+                    <option value="@Model.GameWithPersonInfo.PlayTime.PlayTimeCategory"></option>
+                </select>
+
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -31,7 +36,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to My Games</a>
 </div>
 
 @section Scripts {

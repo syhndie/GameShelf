@@ -13,12 +13,12 @@ namespace GameShelf.Models.ViewModels
         public GameWithPersonInfo GameWithPersonInfo { get; set; }
         public SelectList PlayTimeSelect { get; set; }
 
-        public GameEditViewModel(GameShelfContext db)
+        public GameEditViewModel(GameShelfContext _context, int id)
         {
-            var playTimeQuery = from pt in db.Playtimes
-                                orderby pt.ID
-                                select pt;
+            var playTimeQuery = _context.Playtimes.OrderBy(pt => pt.ID);
             PlayTimeSelect = new SelectList(playTimeQuery, "PlayTimeCategory", "PlayTimeCategory");
+
+            GameWithPersonInfo = new GameWithPersonInfo( _context, id);
         }
     }
 }

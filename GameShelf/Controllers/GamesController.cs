@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GameShelf.Data;
 using GameShelf.Models;
+using GameShelf.Models.ViewModels;
 
 namespace GameShelf.Controllers
 {
@@ -68,19 +69,11 @@ namespace GameShelf.Controllers
         }
 
         // GET: Games/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var game = await _context.Games.SingleOrDefaultAsync(m => m.ID == id);
-            if (game == null)
-            {
-                return NotFound();
-            }
-            return View(game);
+        public async Task<IActionResult> Edit(int id)
+        {
+            var editVM = new GameEditViewModel(_context, id);
+            return View(editVM);
         }
 
         // POST: Games/Edit/5
