@@ -12,9 +12,10 @@ using System;
 namespace GameShelf.Migrations
 {
     [DbContext(typeof(GameShelfContext))]
-    partial class GameShelfContextModelSnapshot : ModelSnapshot
+    [Migration("20180222214006_fixedGameModel")]
+    partial class fixedGameModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

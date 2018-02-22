@@ -22,9 +22,9 @@ namespace GameShelf.Controllers
         }
 
         // GET: Games
-        public IActionResult Index(string titleFilter, int yearFilter, int minFilter, int maxFilter, string playTimeFilter, string ownerFilter, string designerFilter, string sort)
+        public IActionResult Index(string titleFilter, int minFilter, int maxFilter, int playTimeFilter, string ownerFilter, string designerFilter, string sort)
         {
-            var indexVM = new GameIndexViewModel(_context, titleFilter, yearFilter, minFilter, maxFilter, playTimeFilter, ownerFilter, designerFilter, sort);
+            var indexVM = new GameIndexViewModel(_context, titleFilter, minFilter, maxFilter, playTimeFilter, ownerFilter, designerFilter, sort);
 
             return View(indexVM);
         }
@@ -58,7 +58,7 @@ namespace GameShelf.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,OrigPubYear,Edition")] Game game)
+        public async Task<IActionResult> Create([Bind("ID,Title")] Game game)
         {
             if (ModelState.IsValid)
             {

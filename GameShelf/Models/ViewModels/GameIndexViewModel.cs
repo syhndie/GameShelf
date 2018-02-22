@@ -14,8 +14,7 @@ namespace GameShelf.Models
     {
         public List<GameWithPersonInfo> GameList { get; set; }
         public string TitleFilter { get; set; }
-        public int YearFilter { get; set; }
-        public string PlayTimeFilter { get; set; }
+        public int PlayTimeFilter { get; set; }
         public int MinFilter { get; set; }
         public int MaxFilter { get; set; }
         public string OwnerFilter { get; set; }
@@ -26,16 +25,14 @@ namespace GameShelf.Models
         public GameIndexViewModel (
             GameShelfContext db, 
             string titleFilter, 
-            int yearFilter, 
             int minFilter,
             int maxFilter,
-            string playTimeFilter,
+            int playTimeFilter,
             string ownerFilter, 
             string designerFilter, 
             string sort)
         {
             TitleFilter = titleFilter;
-            YearFilter = yearFilter;
             MinFilter = minFilter;
             MaxFilter = maxFilter;
             PlayTimeFilter = playTimeFilter;
@@ -46,7 +43,7 @@ namespace GameShelf.Models
             var playTimeQuery = from pt in db.Playtimes
                                 orderby pt.ID
                                 select pt;
-            PlayTimeSelect = new SelectList(playTimeQuery, "PlayTimeCategory", "PlayTimeCategory");
+            PlayTimeSelect = new SelectList(playTimeQuery, "ID", "PlayTimeCategory");
 
             var gamesIEnum = db.Games
                 .Include(g => g.PlayTime)
@@ -60,11 +57,6 @@ namespace GameShelf.Models
                 gamesIEnum = gamesIEnum.Where(gpi => gpi.Title.ToLower().Contains(titleFilter.ToLower()));
             } 
 
-            if (yearFilter != 0)
-            {
-                gamesIEnum = gamesIEnum.Where(gpi => gpi.PublicationYear == yearFilter);
-            }
-
             if (minFilter != 0)
             {
                 gamesIEnum = gamesIEnum.Where(gpi => gpi.MinPlayers == minFilter);
@@ -75,9 +67,9 @@ namespace GameShelf.Models
                 gamesIEnum = gamesIEnum.Where(gpi => gpi.MaxPlayers == maxFilter);
             }
 
-            if (!String.IsNullOrEmpty(playTimeFilter))
+            if (playTimeFilter != 0)
             {
-                gamesIEnum = gamesIEnum.Where(gpi => gpi.PlayTime.PlayTimeCategory == playTimeFilter);
+                gamesIEnum = gamesIEnum.Where(gpi => gpi.PlayTimeID == playTimeFilter);
             }
 
             if (!String.IsNullOrEmpty(ownerFilter))
@@ -92,23 +84,15 @@ namespace GameShelf.Models
 
             if (sort == "title-desc")
             {
-                GameList = gamesIEnum.OrderByDescending(gpi => gpi.Title).ThenByDescending(gpi => gpi.PublicationYear).ToList();
-            }
-            else if (sort == "year-asc")
-            {
-                GameList = gamesIEnum.OrderBy(gpi => gpi.PublicationYear).ThenBy(gpi => gpi.Title).ToList();
-            }
-            else if (sort == "year-desc")
-            {
-                GameList = gamesIEnum.OrderByDescending(gpi => gpi.PublicationYear).ThenByDescending(gpi => gpi.Title).ToList();
+                GameList = gamesIEnum.OrderByDescending(gpi => gpi.Title).ToList();
             }
             else if (sort == "time-asc")
             {
-                GameList = gamesIEnum.OrderBy(gpi => gpi.PlayTime).ThenBy(gpi => gpi.Title).ToList();
+                GameList = gamesIEnum.OrderBy(gpi => gpi.PlayTimeID).ThenBy(gpi => gpi.Title).ToList();
             }
             else if (sort == "time-desc")
             {
-                GameList = gamesIEnum.OrderByDescending(gpi => gpi.PlayTime).ThenByDescending(gpi => gpi.Title).ToList();
+                GameList = gamesIEnum.OrderByDescending(gpi => gpi.PlayTimeID).ThenByDescending(gpi => gpi.Title).ToList();
             }
             else if (sort == "minplay-asc")
             {
@@ -128,7 +112,7 @@ namespace GameShelf.Models
             }
             else
             {
-                GameList = gamesIEnum.OrderBy(gpi => gpi.Title).ThenBy(gpi => gpi.PublicationYear).ToList();
+                GameList = gamesIEnum.OrderBy(gpi => gpi.Title).ToList();
             }
         }
     }

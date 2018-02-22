@@ -13,15 +13,15 @@ namespace GameShelf.Models
         [Required]
         public string Title { get; set; }
 
-        public int? PublicationYear { get; set; }
-
         [Display(Name ="Minimum Players")]
         public int MinPlayers { get; set; }
 
+        [Display(Name ="Maximum Players")]
         public int MaxPlayers { get; set; }
 
         public ICollection<GamePersonRelationship> GamePersonRelationships { get; set; }
 
+        public int PlayTimeID { get; set; }
         public PlayTime PlayTime { get; set; }
     }
 }

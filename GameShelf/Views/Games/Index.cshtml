@@ -18,24 +18,19 @@
             <tr>
                 <th>
                     @*Title*@
-                    <a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "title-asc" ? "title-desc" : "title-asc")">Title</a>
+                    <a href="/Games?titleFilter=@(Model.TitleFilter)&playTimeFilter=@(Model.PlayTimeFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "title-asc" ? "title-desc" : "title-asc")">Title</a>
                 </th>
-@*              <th>
-                    Publication Year
-                    @*<a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "year-asc" ? "year-desc" : "year-asc")">Publication Year</a>
-                </th>
-*@
                 <th>
                     @*Playing Time*@
-                    <a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "time-asc" ? "time-desc" : "time-asc")">Playing Time</a>
+                    <a href="/Games?titleFilter=@(Model.TitleFilter)&playTimeFilter=@(Model.PlayTimeFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "time-asc" ? "time-desc" : "time-asc")">Playing Time</a>
                 </th>
                 <th>
                     @*Minimum Players*@
-                    <a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "minplay-asc" ? "minplay-desc" : "minplay-asc")">Minimum <br /> Players</a>
+                    <a href="/Games?titleFilter=@(Model.TitleFilter)&playTimeFilter=@(Model.PlayTimeFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "minplay-asc" ? "minplay-desc" : "minplay-asc")">Minimum <br /> Players</a>
                 </th>
                 <th>
                     @*Maximum Players*@
-                    <a href="/Games?titleFilter=@(Model.TitleFilter)&yearFilter=@(Model.YearFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "maxplay-asc" ? "maxplay-desc" : "maxplay-asc")">Maximum <br />  Players</a>
+                    <a href="/Games?titleFilter=@(Model.TitleFilter)&playTimeFilter=@(Model.PlayTimeFilter)&ownerFilter=@(Model.OwnerFilter)&designerFilter=@(Model.DesignerFilter)&sort=@(Model.Sort == "maxplay-asc" ? "maxplay-desc" : "maxplay-asc")">Maximum <br />  Players</a>
                 </th>
                 <th>Owners</th>
                 <th>Designers</th>
@@ -47,10 +42,6 @@
                 <td>
                     <input class="form-control" type="text" name="titleFilter" value="@Model.TitleFilter" />
                 </td>
-@*              <td>
-                    <input class="form-control" type="text" name="yearFilter" value="@(Model.YearFilter == 0 ? "" : Model.YearFilter.ToString())" placeholder="yyyy" />
-                </td>
-*@
                 <td>
                     <select class="form-control" asp-for="PlayTimeFilter" asp-items="@Model.PlayTimeSelect">
                         <option value="">Select Playing Time</option>
@@ -79,10 +70,6 @@
                 <td>
                     @game.Title
                 </td>
-@*              <td>
-                    @game.PublicationYear
-                </td>
-*@
                 <td>
                     @game.PlayTime.PlayTimeCategory
                 </td>
