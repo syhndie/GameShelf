@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GameShelf.Data;
@@ -70,7 +71,7 @@ namespace GameShelf.Controllers
 
         // GET: Games/Edit/5
 
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
             var editVM = new GameEditViewModel(_context, id);
             return View(editVM);
@@ -79,36 +80,17 @@ namespace GameShelf.Controllers
         // POST: Games/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,OrigPubYear,Edition")] Game game)
+        public async Task<IActionResult> EditPost(int id)
         {
-            if (id != game.ID)
-            {
-                return NotFound();
-            }
+            var gameToUpdate = _context.Games.Include(g => g.PlayTime).Single(g => g.ID == id);
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(game);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!GameExists(game.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(game);
+            bool updated = await TryUpdateModelAsync<Game>(gameToUpdate, "GameWithPersonInfo", g => g.Title);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Games/Delete/5
