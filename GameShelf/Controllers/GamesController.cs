@@ -14,17 +14,17 @@ namespace GameShelf.Controllers
 {
     public class GamesController : Controller
     {
-        private readonly GameShelfContext _context;
+        private readonly GameShelfContext db;
 
         public GamesController(GameShelfContext context)
         {
-            _context = context;
+            db = context;
         }
 
         // GET: Games
         public IActionResult Index(string titleFilter, int minFilter, int maxFilter, int playTimeFilter, string ownerFilter, string designerFilter, string sort)
         {
-            var indexVM = new GameIndexViewModel(_context, titleFilter, minFilter, maxFilter, playTimeFilter, ownerFilter, designerFilter, sort);
+            var indexVM = new GameIndexViewModel(db, titleFilter, minFilter, maxFilter, playTimeFilter, ownerFilter, designerFilter, sort);
 
             return View(indexVM);
         }
@@ -37,7 +37,7 @@ namespace GameShelf.Controllers
                 return NotFound();
             }
 
-            var game = await _context.Games
+            var game = await db.Games
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (game == null)
             {
@@ -62,8 +62,8 @@ namespace GameShelf.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(game);
-                await _context.SaveChangesAsync();
+                db.Add(game);
+                await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(game);
@@ -73,7 +73,7 @@ namespace GameShelf.Controllers
 
         public IActionResult Edit(int id)
         {
-            var editVM = new GameEditViewModel(_context, id);
+            var editVM = new GameEditViewModel(db, id);
             return View(editVM);
         }
 
@@ -84,11 +84,11 @@ namespace GameShelf.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPost(int id)
         {
-            var gameToUpdate = _context.Games.Include(g => g.PlayTime).Single(g => g.ID == id);
+            var gameToUpdate = db.Games.Include(g => g.PlayTime).Single(g => g.ID == id);
 
-            bool updated = await TryUpdateModelAsync<Game>(gameToUpdate, "GameWithPersonInfo", g => g.Title);
+            bool updated = await TryUpdateModelAsync<Game>(gameToUpdate, "GameWithPersonInfo", g => g.Title, g => g.PlayTimeID);
 
-            await _context.SaveChangesAsync();
+            await db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
@@ -101,7 +101,7 @@ namespace GameShelf.Controllers
                 return NotFound();
             }
 
-            var game = await _context.Games
+            var game = await db.Games
                 .Include(g => g.PlayTime)
                 .Include(g => g.GamePersonRelationships)
                 .ThenInclude(gpr => gpr.Person)
@@ -122,15 +122,15 @@ namespace GameShelf.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var game = await _context.Games.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Games.Remove(game);
-            await _context.SaveChangesAsync();
+            var game = await db.Games.SingleOrDefaultAsync(m => m.ID == id);
+            db.Games.Remove(game);
+            await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool GameExists(int id)
         {
-            return _context.Games.Any(e => e.ID == id);
+            return db.Games.Any(e => e.ID == id);
         }
     }
 }

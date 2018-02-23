@@ -40,9 +40,7 @@ namespace GameShelf.Models
             DesignerFilter = designerFilter;
             Sort = sort;
 
-            var playTimeQuery = from pt in db.Playtimes
-                                orderby pt.ID
-                                select pt;
+            var playTimeQuery = db.Playtimes.OrderBy(pt => pt.ID);
             PlayTimeSelect = new SelectList(playTimeQuery, "ID", "PlayTimeCategory");
 
             var gamesIEnum = db.Games

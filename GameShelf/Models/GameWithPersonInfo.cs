@@ -34,10 +34,10 @@ namespace GameShelf.Models
             Designers = game.GamePersonRelationships.Where(gpr => gpr.Role == Role.Designer).Select(gpr => gpr.Person).ToList();
         }
 
-        public GameWithPersonInfo(GameShelfContext _context, int id)
+        public GameWithPersonInfo(GameShelfContext db, int id)
         {
             ID = id;
-            var gameWithPersonInfo = _context.Games
+            var gameWithPersonInfo = db.Games
                 .Include(g => g.PlayTime)
                 .Include(g => g.GamePersonRelationships)
                 .ThenInclude(gpi => gpi.Person)
