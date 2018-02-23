@@ -86,7 +86,7 @@ namespace GameShelf.Controllers
         {
             var gameToUpdate = db.Games.Include(g => g.PlayTime).Single(g => g.ID == id);
 
-            bool updated = await TryUpdateModelAsync<Game>(gameToUpdate, "GameWithPersonInfo", g => g.Title, g => g.PlayTimeID);
+            bool updated = await TryUpdateModelAsync<Game>(gameToUpdate, "GameWithPersonInfo", g => g.Title, g => g.PlayTimeID, g => g.MinPlayers, g => g.MaxPlayers);
 
             await db.SaveChangesAsync();
 

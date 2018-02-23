@@ -21,8 +21,18 @@
                 <select class="form-control" asp-for="GameWithPersonInfo.PlayTimeID" asp-items="@Model.PlayTimeSelect">
                     <option value="@Model.GameWithPersonInfo.PlayTime.ID">@Model.GameWithPersonInfo.PlayTime.PlayTimeCategory</option>
                 </select>
-
             </div>
+            <div class="form-group">
+                <label asp-for="GameWithPersonInfo.MinPlayers" class="control-label"></label>
+                <input asp-for="GameWithPersonInfo.MinPlayers" class="form-control" type="text" />
+                <span asp-validation-for="GameWithPersonInfo.MinPlayers" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GameWithPersonInfo.MaxPlayers" class="control-label"></label>
+                <input asp-for="GameWithPersonInfo.MaxPlayers" class="form-control" type="text" />
+                <span asp-validation-for="GameWithPersonInfo.MaxPlayers" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>

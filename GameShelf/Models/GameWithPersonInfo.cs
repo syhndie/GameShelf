@@ -5,17 +5,26 @@ using System.Threading.Tasks;
 using GameShelf.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace GameShelf.Models
 {
     public class GameWithPersonInfo
     {
         public int ID { get; set; }
+
+        [Required]
         public string Title { get; set; }
+        
+        [Display(Name ="Minimum Players")]
         public int MinPlayers { get; set; }
+
+        [Display(Name ="Maximum Players")]
         public int MaxPlayers { get; set; }
+
         public int PlayTimeID { get; set; }
         public PlayTime PlayTime { get; set; }
+
         public List<Person> Owners { get; set; }
         public List<Person> Designers { get; set; }
 
