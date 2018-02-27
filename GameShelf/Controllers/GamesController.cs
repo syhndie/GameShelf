@@ -84,7 +84,11 @@ namespace GameShelf.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPost(int id)
         {
-            var gameToUpdate = db.Games.Include(g => g.PlayTime).Single(g => g.ID == id);
+            var gameToUpdate = db.Games
+                .Include(g => g.PlayTime)
+                .Include(g => g.GamePersonRelationships)
+                .ThenInclude(gpi => gpi.Person)
+                .Single(g => g.ID == id);
 
             bool updated = await TryUpdateModelAsync<Game>(gameToUpdate, "GameWithPersonInfo", g => g.Title, g => g.PlayTimeID, g => g.MinPlayers, g => g.MaxPlayers);
 
