@@ -82,7 +82,7 @@ namespace GameShelf.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPost(int id)
+        public async Task<IActionResult> EditPost(int id, int[] selectedOwners)
         {
             var gameToUpdate = db.Games
                 .Include(g => g.PlayTime)
