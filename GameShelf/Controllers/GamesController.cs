@@ -80,9 +80,9 @@ namespace GameShelf.Controllers
         // POST: Games/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost, ActionName("Edit")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPost(int id, int[] selectedOwners)
+        public async Task<IActionResult> Edit(int id, int[] selectedOwners)
         {
             var gameToUpdate = db.Games
                 .Include(g => g.PlayTime)
@@ -92,6 +92,8 @@ namespace GameShelf.Controllers
 
             bool updated = await TryUpdateModelAsync<Game>(gameToUpdate, "GameWithPersonInfo", g => g.Title, g => g.PlayTimeID, g => g.MinPlayers, g => g.MaxPlayers);
 
+            gameToUpdate.UpdateGameOwners(selectedOwners, db);
+            
             await db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
