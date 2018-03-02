@@ -31,7 +31,8 @@
                 <span asp-validation-for="GameWithPersonInfo.MaxPlayers" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="GameWithPersonInfo.Owners" class="control-label"></label>
+                <label asp-for="GameWithPersonInfo.Owners" class="control-label"></label> &nbsp;
+                <a href="/People/Create">Add a New Person to the Database</a>
                 <select multiple class="form-control" name="selectedOwners">
                     @{ 
                         foreach (var person in Model.AllPersonsData)
