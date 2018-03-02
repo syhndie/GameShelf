@@ -27,34 +27,25 @@ namespace GameShelf.Models
 
         public void UpdateGameOwners(int[] selectedOwners, GameShelfContext db)
         {
-            if (selectedOwners.Length == 0)
-            {
-                GamePersonRelationships = GamePersonRelationships.Where(gpr => gpr.Role != Role.Owner).ToList();
-                return;
-            }
-
             var selectedOwnersHS = new HashSet<int>(selectedOwners);
             var currentOwnersHS = new HashSet<int>(this.GamePersonRelationships.Where(gpr => gpr.Role == Role.Owner).Select(gpr => gpr.PersonID));
-            foreach (var person in db.People)
+
+            foreach (var selectedOwnerID in selectedOwners)
             {
-                if (selectedOwnersHS.Contains(person.ID))
+                if (!currentOwnersHS.Contains(selectedOwnerID))
                 {
-                    if (!currentOwnersHS.Contains(person.ID))
-                    {
-                        GamePersonRelationships.Add(new GamePersonRelationship { GameID = ID, PersonID = person.ID, Role = Role.Owner });
-                    }
-                }
-                else
-                {
-                    if (currentOwnersHS.Contains(person.ID))
-                    {
-                        GamePersonRelationship ownerToRemove = GamePersonRelationships.Where(gpr => gpr.Role == Role.Owner).Single(gpr => gpr.PersonID == person.ID);
-                        db.Remove(ownerToRemove);
-                    }
+                    this.GamePersonRelationships.Add(new GamePersonRelationship { GameID = this.ID, PersonID = selectedOwnerID, Role = Role.Owner });
                 }
             }
 
+            foreach (var currentOwnerID in currentOwnersHS)
+            {
+                if (!selectedOwnersHS.Contains(currentOwnerID))
+                {
+                    var ownerToRemove = this.GamePersonRelationships.Where(gpr => gpr.Role == Role.Owner).Single(gpr => gpr.PersonID == currentOwnerID);
+                    db.Remove(ownerToRemove);
+                }
+            }
         }
     }
-
 }
