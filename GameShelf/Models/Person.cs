@@ -11,11 +11,14 @@ namespace GameShelf.Models
         public int ID { get; set; }
 
         [Required]
+        [Display(Name ="Last Name")]
         public string LastName { get; set; }
 
         [Required]
+        [Display(Name ="First Name")]
         public string FirstName { get; set; }
 
+        [Display(Name = "Name")]
         public string FullName
         {
             get
