@@ -7,22 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GameShelf.Data;
 using GameShelf.Models;
+using GameShelf.Models.ViewModels;
 
 namespace GameShelf.Controllers
 {
     public class PeopleController : Controller
     {
-        private readonly GameShelfContext _context;
+        private readonly GameShelfContext db;
 
         public PeopleController(GameShelfContext context)
         {
-            _context = context;
+            db = context;
         }
 
         // GET: People
         public async Task<IActionResult> Index()
         {
-            return View(await _context.People.ToListAsync());
+            return View(await db.People.ToListAsync());
         }
 
         // GET: People/Details/5
@@ -33,7 +34,7 @@ namespace GameShelf.Controllers
                 return NotFound();
             }
 
-            var person = await _context.People
+            var person = await db.People
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (person == null)
             {
@@ -44,25 +45,50 @@ namespace GameShelf.Controllers
         }
 
         // GET: People/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            return View();
+            var personVM = new PersonCreateViewModel(id);
+            return View(personVM);
         }
+
+        // POST: Games/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, int[] selectedOwners)
+        //{
+        //    var gameToUpdate = db.Games
+        //        .Include(g => g.PlayTime)
+        //        .Include(g => g.GamePersonRelationships)
+        //        .ThenInclude(gpi => gpi.Person)
+        //        .Single(g => g.ID == id);
+
+        //    bool updated = await TryUpdateModelAsync<Game>(gameToUpdate, "GameWithPersonInfo", g => g.Title, g => g.PlayTimeID, g => g.MinPlayers, g => g.MaxPlayers);
+
+        //    gameToUpdate.UpdateGameOwners(selectedOwners, db);
+
+        //    await db.SaveChangesAsync();
+
+        //    return RedirectToAction(nameof(Index));
+        //}
+
 
         // POST: People/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,LastName,FirstName")] Person person)
+        public async Task<IActionResult> Create([Bind("ID,LastName,FirstName")] Person person, [Bind("GameID")] int gameID)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(person);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                db.Add(person);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Edit", "Games", new { id = gameID });
             }
-            return View(person);
+            var personVM = new PersonCreateViewModel(gameID);
+            return View(personVM);
         }
 
         // GET: People/Edit/5
@@ -73,7 +99,7 @@ namespace GameShelf.Controllers
                 return NotFound();
             }
 
-            var person = await _context.People.SingleOrDefaultAsync(m => m.ID == id);
+            var person = await db.People.SingleOrDefaultAsync(m => m.ID == id);
             if (person == null)
             {
                 return NotFound();
@@ -97,8 +123,8 @@ namespace GameShelf.Controllers
             {
                 try
                 {
-                    _context.Update(person);
-                    await _context.SaveChangesAsync();
+                    db.Update(person);
+                    await db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,7 +150,7 @@ namespace GameShelf.Controllers
                 return NotFound();
             }
 
-            var person = await _context.People
+            var person = await db.People
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (person == null)
             {
@@ -139,15 +165,15 @@ namespace GameShelf.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var person = await _context.People.SingleOrDefaultAsync(m => m.ID == id);
-            _context.People.Remove(person);
-            await _context.SaveChangesAsync();
+            var person = await db.People.SingleOrDefaultAsync(m => m.ID == id);
+            db.People.Remove(person);
+            await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool PersonExists(int id)
         {
-            return _context.People.Any(e => e.ID == id);
+            return db.People.Any(e => e.ID == id);
         }
     }
 }
