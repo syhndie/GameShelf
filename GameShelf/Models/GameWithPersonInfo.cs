@@ -39,8 +39,8 @@ namespace GameShelf.Models
             MaxPlayers = game.MaxPlayers;
             PlayTimeID = game.PlayTimeID;
             PlayTime = game.PlayTime;
-            Owners = game.GamePersonRelationships.Where(gpr => gpr.Role == Role.Owner).Select(gpr => gpr.Person).ToList();
-            Designers = game.GamePersonRelationships.Where(gpr => gpr.Role == Role.Designer).Select(gpr => gpr.Person).ToList();
+            Owners = game.GamePersonRelationships.Where(gpr => gpr.Role == Role.Owner).OrderBy(gpr => gpr.Person.LastName).ThenBy(gpr => gpr.Person.FirstName).Select(gpr => gpr.Person).ToList();
+            Designers = game.GamePersonRelationships.Where(gpr => gpr.Role == Role.Designer).OrderBy(gpr => gpr.Person.LastName).ThenBy(gpr => gpr.Person.FirstName).Select(gpr => gpr.Person).ToList();
         }
 
         public GameWithPersonInfo(GameShelfContext db, int id)
@@ -56,8 +56,8 @@ namespace GameShelf.Models
             MaxPlayers = gameWithPersonInfo.MaxPlayers;
             PlayTimeID = gameWithPersonInfo.PlayTimeID;
             PlayTime = gameWithPersonInfo.PlayTime;
-            Owners = gameWithPersonInfo.GamePersonRelationships.Where(gpr => gpr.Role == Role.Owner).Select(gpr => gpr.Person).ToList();
-            Designers = gameWithPersonInfo.GamePersonRelationships.Where(gpr => gpr.Role == Role.Designer).Select(gpr => gpr.Person).ToList();
+            Owners = gameWithPersonInfo.GamePersonRelationships.Where(gpr => gpr.Role == Role.Owner).OrderBy(gpr => gpr.Person.LastName).ThenBy(gpr => gpr.Person.FirstName).Select(gpr => gpr.Person).ToList();
+            Designers = gameWithPersonInfo.GamePersonRelationships.Where(gpr => gpr.Role == Role.Designer).OrderBy(gpr => gpr.Person.LastName).ThenBy(gpr => gpr.Person.FirstName).Select(gpr => gpr.Person).ToList();
         }
     }
 }

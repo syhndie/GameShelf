@@ -25,25 +25,25 @@ namespace GameShelf.Models
         public int PlayTimeID { get; set; }
         public PlayTime PlayTime { get; set; }
 
-        public void UpdateGameOwners(int[] selectedOwners, GameShelfContext db)
+        public void UpdateGamePeople(int[] selectedPeople, GameShelfContext db, Role role)
         {
-            var selectedOwnersHS = new HashSet<int>(selectedOwners);
-            var currentOwnersHS = new HashSet<int>(this.GamePersonRelationships.Where(gpr => gpr.Role == Role.Owner).Select(gpr => gpr.PersonID));
+            var selectedPeopleHS = new HashSet<int>(selectedPeople);
+            var currentPeopleHS = new HashSet<int>(this.GamePersonRelationships.Where(gpr => gpr.Role == role).Select(gpr => gpr.PersonID));
 
-            foreach (var selectedOwnerID in selectedOwners)
+            foreach (int selectedPersonID in selectedPeopleHS)
             {
-                if (!currentOwnersHS.Contains(selectedOwnerID))
+                if (!currentPeopleHS.Contains(selectedPersonID))
                 {
-                    this.GamePersonRelationships.Add(new GamePersonRelationship { GameID = this.ID, PersonID = selectedOwnerID, Role = Role.Owner });
+                    this.GamePersonRelationships.Add(new GamePersonRelationship { GameID = this.ID, PersonID = selectedPersonID, Role = role });
                 }
             }
 
-            foreach (var currentOwnerID in currentOwnersHS)
+            foreach (var currentPersonID in currentPeopleHS)
             {
-                if (!selectedOwnersHS.Contains(currentOwnerID))
+                if (!selectedPeopleHS.Contains(currentPersonID))
                 {
-                    var ownerToRemove = this.GamePersonRelationships.Where(gpr => gpr.Role == Role.Owner).Single(gpr => gpr.PersonID == currentOwnerID);
-                    db.Remove(ownerToRemove);
+                    var personToRemove = this.GamePersonRelationships.Where(gpr => gpr.Role == role).Single(gpr => gpr.PersonID == currentPersonID);
+                    db.Remove(personToRemove);
                 }
             }
         }

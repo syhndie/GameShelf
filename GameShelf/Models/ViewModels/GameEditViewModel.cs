@@ -13,7 +13,6 @@ namespace GameShelf.Models.ViewModels
         public GameWithPersonInfo GameWithPersonInfo { get; set; }
         public SelectList PlayTimeSelect { get; set; }
         public List<AssignedPersonData> AllPersonsData { get; set; }
-        public MultiSelectList OwnerSelect { get; set; }
 
         public GameEditViewModel(GameShelfContext db, int id)
         {
@@ -35,20 +34,6 @@ namespace GameShelf.Models.ViewModels
                     AssignedDesigner = GameWithPersonInfo.Designers.Contains(person)
                 });
             }
-
-            List<SelectListItem> personItems = new List<SelectListItem>();
-            foreach (var person in AllPersonsData)
-            {
-                var personItem = new SelectListItem
-                {
-                    Value = person.PersonID.ToString(),
-                    Text = person.FullName
-                };
-
-                personItems.Add(personItem);
-            }
-
-            OwnerSelect = new MultiSelectList(personItems.OrderBy(pi => pi.Text), "Value", "Text");
         }
     }
 }
