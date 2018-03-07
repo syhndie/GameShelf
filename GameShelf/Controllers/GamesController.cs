@@ -50,7 +50,8 @@ namespace GameShelf.Controllers
         // GET: Games/Create
         public IActionResult Create()
         {
-            return View();
+            var editVM = new GameEditViewModel(db);
+            return View(editVM);
         }
 
         // POST: Games/Create

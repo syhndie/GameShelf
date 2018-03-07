@@ -14,6 +14,24 @@ namespace GameShelf.Models.ViewModels
         public SelectList PlayTimeSelect { get; set; }
         public List<AssignedPersonData> AllPersonsData { get; set; }
 
+        public GameEditViewModel(GameShelfContext db)
+        {
+            var playTimeQuery = db.Playtimes.OrderBy(pt => pt.ID);
+            PlayTimeSelect = new SelectList(playTimeQuery, "ID", "PlayTimeCategory");
+
+            var personQuery = db.People.OrderBy(p => p.LastName).ThenBy(p => p.FirstName);
+
+            AllPersonsData = new List<AssignedPersonData>();
+            foreach (Person person in personQuery)
+            {
+                AllPersonsData.Add(new AssignedPersonData
+                {
+                    PersonID = person.ID,
+                    FullName = person.FullName
+                });
+            }
+        }
+
         public GameEditViewModel(GameShelfContext db, int id)
         {
             GameWithPersonInfo = new GameWithPersonInfo(db, id);
