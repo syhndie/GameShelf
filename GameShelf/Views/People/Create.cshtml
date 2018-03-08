@@ -32,7 +32,16 @@
 </div>
 
 <div>
-    <a asp-controller="Games" asp-action="Edit" asp-route-id="@Model.GameID">Return to Game Edit Page</a>
+    @{ if (Model.GameID == 0)
+       {
+            <a asp-controller="Games" asp-action="Index">Return to My Games</a>
+       }
+        else
+        {
+            <a asp-controller="Games" asp-action="Edit" asp-route-id="@Model.GameID">Return to Game Edit Page</a> 
+        }
+    }
+
 </div>
 
 @section Scripts {

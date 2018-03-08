@@ -51,29 +51,6 @@ namespace GameShelf.Controllers
             return View(personVM);
         }
 
-        // POST: Games/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, int[] selectedOwners)
-        //{
-        //    var gameToUpdate = db.Games
-        //        .Include(g => g.PlayTime)
-        //        .Include(g => g.GamePersonRelationships)
-        //        .ThenInclude(gpi => gpi.Person)
-        //        .Single(g => g.ID == id);
-
-        //    bool updated = await TryUpdateModelAsync<Game>(gameToUpdate, "GameWithPersonInfo", g => g.Title, g => g.PlayTimeID, g => g.MinPlayers, g => g.MaxPlayers);
-
-        //    gameToUpdate.UpdateGameOwners(selectedOwners, db);
-
-        //    await db.SaveChangesAsync();
-
-        //    return RedirectToAction(nameof(Index));
-        //}
-
-
         // POST: People/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -85,7 +62,15 @@ namespace GameShelf.Controllers
             {
                 db.Add(person);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Edit", "Games", new { id = gameID });
+                if (gameID == 0)
+                {
+                    return RedirectToAction("Index", "Games");
+                }
+                else
+                {
+                    return RedirectToAction("Edit", "Games", new { id = gameID });
+                }
+
             }
             var personVM = new PersonCreateViewModel(gameID);
             return View(personVM);
