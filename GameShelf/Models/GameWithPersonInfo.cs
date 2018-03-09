@@ -28,6 +28,11 @@ namespace GameShelf.Models
         public List<Person> Owners { get; set; }
         public List<Person> Designers { get; set; }
 
+        public GameWithPersonInfo()
+        {
+
+        }
+
         /// <summary>
         /// To use this constructor, the game MUST already have person relationships and persons included.
         /// </summary>

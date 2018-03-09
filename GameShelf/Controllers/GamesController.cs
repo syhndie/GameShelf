@@ -59,15 +59,30 @@ namespace GameShelf.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title")] Game game)
+        public async Task<IActionResult> Create(GameEditViewModel editViewModel, int[] selectedOwners, int[] selectedDesigners)
         {
-            if (ModelState.IsValid)
+            var game = new Game()
             {
-                db.Add(game);
-                await db.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                Title = editViewModel.GameWithPersonInfo.Title,
+                PlayTimeID = editViewModel.GameWithPersonInfo.PlayTimeID,
+                MinPlayers =editViewModel.GameWithPersonInfo.MinPlayers,
+                MaxPlayers =editViewModel.GameWithPersonInfo.MaxPlayers
+            };
+
+            db.Add(game);
+
+            foreach (int selectedOwner in selectedOwners)
+            {
+                db.Add(new GamePersonRelationship { GameID = game.ID, PersonID = selectedOwner, Role = Role.Owner });
             }
-            return View(game);
+
+            foreach (int selectedDesigner in selectedDesigners)
+            {
+                db.Add(new GamePersonRelationship { GameID = game.ID, PersonID = selectedDesigner, Role = Role.Designer });
+            }
+
+            await db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Games/Edit/5
