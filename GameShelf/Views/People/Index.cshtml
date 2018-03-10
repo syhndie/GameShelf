@@ -1,0 +1,26 @@
+﻿@model IEnumerable<GameShelf.Models.Person>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Game Owners and Game Designers</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <tbody>
+@foreach (var item in Model.OrderBy(p => p.LastName).ThenBy(p => p.FirstName)) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

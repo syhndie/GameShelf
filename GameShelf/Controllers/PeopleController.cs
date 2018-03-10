@@ -64,7 +64,7 @@ namespace GameShelf.Controllers
                 await db.SaveChangesAsync();
                 if (gameID == 0)
                 {
-                    return RedirectToAction("Index", "Games");
+                    return RedirectToAction("Create", "Games");
                 }
                 else
                 {
