@@ -1,5 +1,1 @@
-﻿investigate people ids - weird incrementation
-
-clean up controllers
-
-add person page should have link back to whichever page it got called from
+﻿add person page should have link back to whichever page it got called from
