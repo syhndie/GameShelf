@@ -21,7 +21,6 @@ namespace GameShelf.Controllers
             db = context;
         }
 
-        // GET: Games
         public IActionResult Index(string titleFilter, int minFilter, int maxFilter, int playTimeFilter, string ownerFilter, string designerFilter, string sort)
         {
             var indexVM = new GameIndexViewModel(db, titleFilter, minFilter, maxFilter, playTimeFilter, ownerFilter, designerFilter, sort);
@@ -29,34 +28,12 @@ namespace GameShelf.Controllers
             return View(indexVM);
         }
 
-        // GET: Games/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var game = await db.Games
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (game == null)
-            {
-                return NotFound();
-            }
-
-            return View(game);
-        }
-
-        // GET: Games/Create
         public IActionResult Create()
         {
             var editVM = new GameEditViewModel(db);
             return View(editVM);
         }
 
-        // POST: Games/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(GameEditViewModel editViewModel, int[] selectedOwners, int[] selectedDesigners)
@@ -85,17 +62,12 @@ namespace GameShelf.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Games/Edit/5
-
         public IActionResult Edit(int id)
         {
             var editVM = new GameEditViewModel(db, id);
             return View(editVM);
         }
 
-        // POST: Games/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, int[] selectedOwners, int[] selectedDesigners)
@@ -116,7 +88,6 @@ namespace GameShelf.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Games/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -140,20 +111,14 @@ namespace GameShelf.Controllers
             return View(gpi);
         }
 
-        // POST: Games/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var game = await db.Games.SingleOrDefaultAsync(m => m.ID == id);
+            var game = await db.Games.SingleAsync(m => m.ID == id);
             db.Games.Remove(game);
             await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool GameExists(int id)
-        {
-            return db.Games.Any(e => e.ID == id);
         }
     }
 }

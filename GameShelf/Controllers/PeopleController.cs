@@ -20,48 +20,28 @@ namespace GameShelf.Controllers
             db = context;
         }
 
-        // GET: People
         public async Task<IActionResult> Index()
         {
             return View(await db.People.ToListAsync());
         }
 
-        // GET: People/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var person = await db.People
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (person == null)
-            {
-                return NotFound();
-            }
-
-            return View(person);
-        }
-
-        // GET: People/Create
         public IActionResult Create(int id)
         {
             var personVM = new PersonCreateViewModel(id);
             return View(personVM);
         }
 
-        // POST: People/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,LastName,FirstName")] Person person, [Bind("GameID")] int gameID)
+        public async Task<IActionResult> Create(PersonCreateViewModel createViewModel, int gameID)
         {
+            var person = new Person() { FirstName = createViewModel.Person.FirstName, LastName = createViewModel.Person.LastName };
+
             if (ModelState.IsValid)
             {
                 db.Add(person);
                 await db.SaveChangesAsync();
+
                 if (gameID == 0)
                 {
                     return RedirectToAction("Create", "Games");
@@ -70,13 +50,12 @@ namespace GameShelf.Controllers
                 {
                     return RedirectToAction("Edit", "Games", new { id = gameID });
                 }
-
             }
+
             var personVM = new PersonCreateViewModel(gameID);
             return View(personVM);
         }
 
-        // GET: People/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -92,9 +71,6 @@ namespace GameShelf.Controllers
             return View(person);
         }
 
-        // POST: People/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,LastName,FirstName")] Person person)
@@ -127,7 +103,6 @@ namespace GameShelf.Controllers
             return View(person);
         }
 
-        // GET: People/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -145,7 +120,6 @@ namespace GameShelf.Controllers
             return View(person);
         }
 
-        // POST: People/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

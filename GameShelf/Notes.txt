@@ -1,28 +1,5 @@
-﻿Game Create Page
-	"back to my games" hyperlink
-	title
-	playing time select list
-	min players
-	max players
-	designer(s)
-		select list of designers already in the database
-			click all 
-			top: "Add Designer(s) to this Game"
-			bottom: "New Designer"								
-	owners(s) 
-		select list of owners already in the database
-			click all
-			top: "Add Owner(s) to this Game"
-			bottom: "New Owner"
+﻿investigate people ids - weird incrementation
 
-Game Edit Page
-	list of designers related to this game with "remove" button by each
-	select list of designers already in the database
-		click all
-		top: "Add Designer(s) to this Game"
-		bottom: "New Designer"
-	list of owners related to this game with "remove" button by each
-	select list of owners already in the database
-		click all
-		top: "Add Owner(s) to this Game"
-		bottom: "New Owner"
+clean up controllers
+
+add person page should have link back to whichever page it got called from

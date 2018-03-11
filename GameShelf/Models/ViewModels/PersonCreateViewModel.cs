@@ -16,5 +16,10 @@ namespace GameShelf.Models.ViewModels
         {
             GameID = gameID;
         }
+
+        public PersonCreateViewModel()
+        {
+
+        }
     }
 }
