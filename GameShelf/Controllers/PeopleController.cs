@@ -25,15 +25,15 @@ namespace GameShelf.Controllers
             return View(await db.People.ToListAsync());
         }
 
-        public IActionResult Create(int id)
+        public IActionResult Create(int id, string origin)
         {
-            var personVM = new PersonCreateViewModel(id);
+            var personVM = new PersonCreateViewModel(id, origin);
             return View(personVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PersonCreateViewModel createViewModel, int gameID)
+        public async Task<IActionResult> Create(PersonCreateViewModel createViewModel, int gameID, string origin)
         {
             var person = new Person() { FirstName = createViewModel.Person.FirstName, LastName = createViewModel.Person.LastName };
 
@@ -42,17 +42,21 @@ namespace GameShelf.Controllers
                 db.Add(person);
                 await db.SaveChangesAsync();
 
-                if (gameID == 0)
+                if (origin == "gamecreate")
                 {
                     return RedirectToAction("Create", "Games");
                 }
-                else
+                else if (origin == "gameedit")
                 {
                     return RedirectToAction("Edit", "Games", new { id = gameID });
                 }
+                else
+                {
+                    return RedirectToAction("Index", "People");
+                }
             }
 
-            var personVM = new PersonCreateViewModel(gameID);
+            var personVM = new PersonCreateViewModel(gameID, origin);
             return View(personVM);
         }
 

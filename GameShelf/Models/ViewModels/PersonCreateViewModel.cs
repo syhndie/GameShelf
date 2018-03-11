@@ -10,11 +10,13 @@ namespace GameShelf.Models.ViewModels
     {
         public Person Person { get; set; }
         public int GameID { get; set; }
+        public string Origin { get; set; }
 
 
-        public PersonCreateViewModel(int gameID)
+        public PersonCreateViewModel(int gameID, string origin)
         {
             GameID = gameID;
+            Origin = origin;
         }
 
         public PersonCreateViewModel()

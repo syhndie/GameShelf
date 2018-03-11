@@ -13,6 +13,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <input type="hidden" asp-for="@Model.GameID" />
+            <input type="hidden" asp-for="@Model.Origin" />
 
             <div class="form-group">
                 <label asp-for="@Model.Person.FirstName" class="control-label"></label>
@@ -32,14 +33,19 @@
 </div>
 
 <div>
-    @{ if (Model.GameID == 0)
+    @{ if (Model.Origin == "gamecreate")
        {
             <a asp-controller="Games" asp-action="Create">Return to Game Creation Page</a>
        }
-        else
+        else if (Model.Origin == "gameedit")
         {
             <a asp-controller="Games" asp-action="Edit" asp-route-id="@Model.GameID">Return to Game Edit Page</a> 
         }
+        else
+        {
+            <a asp-controller="People" asp-action="Index">Return to Game Owners and Designers</a>
+        }
+
     }
 
 </div>
