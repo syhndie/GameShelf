@@ -67,23 +67,15 @@ namespace GameShelf.Controllers
                 return NotFound();
             }
 
-            var person = await db.People.SingleOrDefaultAsync(m => m.ID == id);
-            if (person == null)
-            {
-                return NotFound();
-            }
+            var person = await db.People.SingleAsync(m => m.ID == id);
+
             return View(person);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,LastName,FirstName")] Person person)
+        public async Task<IActionResult> Edit(int id, [Bind("LastName,FirstName")] Person person)
         {
-            if (id != person.ID)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 db.Update(person);
@@ -95,17 +87,8 @@ namespace GameShelf.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var person = await db.People
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (person == null)
-            {
-                return NotFound();
-            }
+                .SingleAsync(m => m.ID == id);
 
             return View(person);
         }
@@ -114,7 +97,7 @@ namespace GameShelf.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var person = await db.People.SingleOrDefaultAsync(m => m.ID == id);
+            var person = await db.People.SingleAsync(m => m.ID == id);
             db.People.Remove(person);
             await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
