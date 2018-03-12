@@ -86,22 +86,8 @@ namespace GameShelf.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    db.Update(person);
-                    await db.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PersonExists(person.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                db.Update(person);
+                await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(person);
@@ -132,11 +118,6 @@ namespace GameShelf.Controllers
             db.People.Remove(person);
             await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool PersonExists(int id)
-        {
-            return db.People.Any(e => e.ID == id);
         }
     }
 }

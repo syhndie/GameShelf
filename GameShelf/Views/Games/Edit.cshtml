@@ -38,7 +38,7 @@
 
             <div class="form-group">
                 <label asp-for="GameWithPersonInfo.Owners" class="control-label"></label> &nbsp;
-                <a asp-controller="People" asp-action="Create" asp-route-origin="gameedit" asp-route-id="@Model.GameWithPersonInfo.ID">Add a New Person to the Database</a>
+                <a asp-controller="People" asp-action="Create" asp-route-origin="gameedit" asp-route-id="@Model.GameWithPersonInfo.ID">Create a New Person in the Database</a>
                 <select multiple class="form-control" name="selectedOwners">
                     @{ 
                         foreach (var person in Model.AllPersonsData)
@@ -52,7 +52,7 @@
 
             <div class="form-group">
                 <label asp-for="GameWithPersonInfo.Designers" class="control-label"></label> &nbsp;
-                <a asp-controller="People" asp-action="Create" asp-route-origin="gameedit" asp-route-id="@Model.GameWithPersonInfo.ID">Add a New Person to the Database</a>
+                <a asp-controller="People" asp-action="Create" asp-route-origin="gameedit" asp-route-id="@Model.GameWithPersonInfo.ID">Create a New Person in the Database</a>
                 <select multiple class="form-control" name="selectedDesigners">
                     @{ 
                         foreach (var person in Model.AllPersonsData)
