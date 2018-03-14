@@ -10,26 +10,26 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
+
             <input type="hidden" asp-for="GameWithPersonInfo.ID" />
-            
+
             <div class="form-group">
                 <label asp-for="GameWithPersonInfo.Title" class="control-label"></label>
                 <input asp-for="GameWithPersonInfo.Title" class="form-control" />
                 <span asp-validation-for="GameWithPersonInfo.Title" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
                 <label asp-for="GameWithPersonInfo.PlayTime.PlayTimeCategory" class="control-label"></label>
                 <select class="form-control" asp-for="GameWithPersonInfo.PlayTimeID" asp-items="@Model.PlayTimeSelect"></select>
             </div>
-            
+
             <div class="form-group">
                 <label asp-for="GameWithPersonInfo.MinPlayers" class="control-label"></label>
                 <input asp-for="GameWithPersonInfo.MinPlayers" class="form-control" type="text" />
                 <span asp-validation-for="GameWithPersonInfo.MinPlayers" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
                 <label asp-for="GameWithPersonInfo.MaxPlayers" class="control-label"></label>
                 <input asp-for="GameWithPersonInfo.MaxPlayers" class="form-control" type="text" />
@@ -38,30 +38,34 @@
 
             <div class="form-group">
                 <label asp-for="GameWithPersonInfo.Owners" class="control-label"></label> &nbsp;
-                <a asp-controller="People" asp-action="Create" asp-route-origin="gameedit" asp-route-id="@Model.GameWithPersonInfo.ID">Create a New Person in the Database</a>
-                <select multiple class="form-control" name="selectedOwners">
-                    @{ 
-                        foreach (var person in Model.AllPersonsData)
+                <a asp-controller="People" asp-action="Create" asp-route-origin="gameedit" asp-route-id="@Model.GameWithPersonInfo.ID">Create a New Person in the Database</a> <br />
+                <div id="checkboxes">
+                    @{
+                        foreach (var person in Model.AllPersonsData.OrderByDescending(p => p.AssignedOwner))
                         {
-                            @:<option value="@person.PersonID" @{if (person.AssignedOwner) {  @:selected
-                                      } } >@person.FullName</option>
+                            <input type="checkbox"
+                                   name="selectedOwners"
+                                   value="@person.PersonID"
+                                   @Html.Raw(person.AssignedOwner ? "checked=\"checked\"" : "") /> @:@person.FullName <br />
                         }
-                    }
-                </select>
+                     }
+                </div>
             </div>
 
             <div class="form-group">
                 <label asp-for="GameWithPersonInfo.Designers" class="control-label"></label> &nbsp;
-                <a asp-controller="People" asp-action="Create" asp-route-origin="gameedit" asp-route-id="@Model.GameWithPersonInfo.ID">Create a New Person in the Database</a>
-                <select multiple class="form-control" name="selectedDesigners">
-                    @{ 
-                        foreach (var person in Model.AllPersonsData)
+                <a asp-controller="People" asp-action="Create" asp-route-origin="gameedit" asp-route-id="@Model.GameWithPersonInfo.ID">Create a New Person in the Database</a><br />
+                <div id="checkboxes">
+                    @{
+                        foreach (var person in Model.AllPersonsData.OrderByDescending(p => p.AssignedDesigner))
                         {
-                            @:<option value="@person.PersonID" @{if (person.AssignedDesigner) { @:selected
-                                      } } >@person.FullName</option>
+                            <input type="checkbox"
+                                   name="selectedDesigners"
+                                   value="@person.PersonID"
+                                   @Html.Raw(person.AssignedDesigner ? "checked=\"checked\"" : "") /> @:@person.FullName <br />
                         }
                      }
-                </select>
+                </div>
             </div>
 
             <div class="form-group">
@@ -78,29 +82,3 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
-@*<div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <table>
-                <tr>
-                    @{
-                        int cnt = 0;
-                        foreach (var person in Model.AllPersonsData)
-                        {
-                            if (cnt++ % 3 == 0)
-                            {
-                                @:</tr><tr>
-                            }
-                            @:<td>
-                                <input type="checkbox"
-                                       name="selectedPeople"
-                                       value="@person.PersonID"
-                                       @(Html.Raw(person.AssignedOwner ? "checked=\"checked\"" : "")) />
-                                       @person.PersonID @: @person.FullName
-                            @:</td>
-                        }
-                        @:</tr>
-                    }
-            </table>
-        </div>
-    </div>*@
