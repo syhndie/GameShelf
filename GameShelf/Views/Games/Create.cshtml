@@ -33,14 +33,18 @@
             </div>
 
             <div class="form-group">
+                Navigating away to create a new person in the database will clear unsaved changes on this page.
+            </div>
+
+            <div class="form-group">
                 <label asp-for="GameWithPersonInfo.Owners" class="control-label"></label> &nbsp;
                 <a asp-controller="People" asp-action="Create" asp-route-origin="gamecreate">Create a New Person in the Database</a><br />
                 <div id="checkboxes">
                     @{
-                        foreach (var person in Model.AllPersonsData)
-                        {
-                            <input type="checkbox" name="selectedOwners" value="@person.PersonID"/> @:@person.FullName <br />
-                        }
+                foreach (var person in Model.AllPersonsData)
+                {
+                    <input type="checkbox" name="selectedOwners" value="@person.PersonID" /> @:@person.FullName <br />
+        }
                     }
                 </div>
             </div>
@@ -50,10 +54,10 @@
                 <a asp-controller="People" asp-action="Create" asp-route-origin="gamecreate">Create a New Person in the Database</a><br />
                 <div id="checkboxes">
                     @{
-                        foreach (var person in Model.AllPersonsData)
-                        {
-                            <input type="checkbox" name="selectedDesigners" value="@person.PersonID"/> @:@person.FullName <br />
-                        }
+                foreach (var person in Model.AllPersonsData)
+                {
+                    <input type="checkbox" name="selectedDesigners" value="@person.PersonID" /> @:@person.FullName <br />
+        }
                     }
                 </div>
             </div>

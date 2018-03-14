@@ -35,6 +35,9 @@
                 <input asp-for="GameWithPersonInfo.MaxPlayers" class="form-control" type="text" />
                 <span asp-validation-for="GameWithPersonInfo.MaxPlayers" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                Navigating away to create a new person in the database will clear unsaved changes on this page. 
+            </div>
 
             <div class="form-group">
                 <label asp-for="GameWithPersonInfo.Owners" class="control-label"></label> &nbsp;
