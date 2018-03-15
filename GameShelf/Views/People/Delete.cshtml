@@ -1,4 +1,4 @@
-﻿@model GameShelf.Models.Person
+﻿@model GameShelf.Models.ViewModels.DeletePersonViewModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -7,6 +7,7 @@
 <h2>Delete Person</h2>
 
 <h3>Are you sure you want to delete @Model.FullName?</h3>
+<p>@Model.FullName will be removed from @Model.GamesCount game(s).</p>
 <div>
     
     <form asp-action="Delete">

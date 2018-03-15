@@ -85,12 +85,13 @@ namespace GameShelf.Controllers
             return View(person);
         }
 
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int id)
         {
-            var person = await db.People
-                .SingleAsync(m => m.ID == id);
+            var deletePerson = new DeletePersonViewModel(id, db);
+            //var person = await db.People
+            //    .SingleAsync(m => m.ID == id);
 
-            return View(person);
+            return View(deletePerson);
         }
 
         [HttpPost, ActionName("Delete")]
