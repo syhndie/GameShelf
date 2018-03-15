@@ -1,2 +1,1 @@
-﻿Add warning about deleting person from database, including number of games that will be affected
-Add warning about losing unsaved game changes when adding new person to the database from game edit and game create pages
+﻿
