@@ -21,6 +21,8 @@ namespace GameShelf.Models.ViewModels
 
         public GameEditViewModel(GameShelfContext db)
         {
+            GameWithPersonInfo = new GameWithPersonInfo();
+
             var playTimeQuery = db.Playtimes.OrderBy(pt => pt.ID);
             PlayTimeSelect = new SelectList(playTimeQuery, "ID", "PlayTimeCategory");
 

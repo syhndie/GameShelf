@@ -10,7 +10,9 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+
+            @Html.Partial("GameEditCreatePartial")
+            @*<div class="form-group">
                 <label asp-for="GameWithPersonInfo.Title" class="control-label"></label>
                 <input asp-for="GameWithPersonInfo.Title" class="form-control" />
                 <span asp-validation-for="GameWithPersonInfo.Title" class="text-danger"></span>
@@ -40,12 +42,12 @@
                 <label asp-for="GameWithPersonInfo.Owners" class="control-label"></label> &nbsp;
                 <a asp-controller="People" asp-action="Create" asp-route-origin="gamecreate">Create a New Person in the Database</a><br />
                 <div id="checkboxes">
-                    @{
-                foreach (var person in Model.AllPersonsData)
-                {
-                    <input type="checkbox" name="selectedOwners" value="@person.PersonID" /> @:@person.FullName <br />
-        }
+                @{
+                    foreach (var person in Model.AllPersonsData)
+                    {
+                        <input type="checkbox" name="selectedOwners" value="@person.PersonID" /> @:@person.FullName <br />
                     }
+                }
                 </div>
             </div>
 
@@ -53,18 +55,18 @@
                 <label asp-for="GameWithPersonInfo.Designers" class="control-label"></label> &nbsp;
                 <a asp-controller="People" asp-action="Create" asp-route-origin="gamecreate">Create a New Person in the Database</a><br />
                 <div id="checkboxes">
-                    @{
-                foreach (var person in Model.AllPersonsData)
-                {
-                    <input type="checkbox" name="selectedDesigners" value="@person.PersonID" /> @:@person.FullName <br />
-        }
+                @{
+                    foreach (var person in Model.AllPersonsData)
+                    {
+                        <input type="checkbox" name="selectedDesigners" value="@person.PersonID" /> @:@person.FullName <br />
                     }
+                }
                 </div>
             </div>
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+            </div>*@
         </form>
     </div>
 </div>

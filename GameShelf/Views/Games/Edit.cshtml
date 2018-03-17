@@ -13,7 +13,9 @@
 
             <input type="hidden" asp-for="GameWithPersonInfo.ID" />
 
-            <div class="form-group">
+            @Html.Partial("GameEditCreatePartial")
+
+            @*<div class="form-group">
                 <label asp-for="GameWithPersonInfo.Title" class="control-label"></label>
                 <input asp-for="GameWithPersonInfo.Title" class="form-control" />
                 <span asp-validation-for="GameWithPersonInfo.Title" class="text-danger"></span>
@@ -73,7 +75,7 @@
 
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+            </div>*@
         </form>
     </div>
 </div>
